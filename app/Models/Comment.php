@@ -14,7 +14,7 @@ class Comment extends Model
     protected $appends = [
         'diffForHumans',
         'likesCount',
-        'displayDialog',
+        'display',
         'isCommentLikedByCurrentUser',
     ];
 
@@ -37,7 +37,7 @@ class Comment extends Model
     /**
      * Append to display the spam dialog in the comments in selectedIdea.vue is false by default
      */
-    public function getDisplayDialogAttribute ()
+    public function getDisplayAttribute ()
     {
         return false;
     }

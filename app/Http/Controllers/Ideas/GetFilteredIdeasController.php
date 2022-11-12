@@ -9,44 +9,53 @@ class GetFilteredIdeasController extends Controller
 {
     public function __invoke ()
     {
-        \Log::info(request()->all());
+        $query = Idea::query();
 
+        // load this data with my ideas
+        $query->with(['user', 'category', 'status', 'comments.user']);
+
+        // ALL IDEAS  + NO FILTER
         if (request('selectedCategory') == 0 && request('selectedFilter') == 'No Filter')
         {
-
-            // Get all ideas
-            $ideas = Idea::with(['user', 'category', 'status', 'comments.user']) // for all my ideas i wanna load this data with all my ideas
-                    ->orderBy('id', 'desc') // will order the ideas by the last post date
-                    ->paginate(10);
+            $query->orderBy('id', 'desc');
         }
         else
         {
-            // filter by category_id
-            if (request('selectedFilter' == 'Top Voted'))
+            // TOP VOTED FILTER
+            if (request('selectedFilter') == 'Top Voted')
             {
-                $ideas = Idea::with(['user', 'category', 'status', 'comments.user'])
-                    ->where('category_id', request('selectedCategory'))
-                    ->orderBy('votesCount', 'desc') // will order the ideas by the last post date
-                    ->paginate(10);
+                $query->withCount('votes')
+                      ->orderBy('votes_count', 'desc');
+
+                // CATEGORY WHEN CATEGORY_ID MATCHES THE CATEGORY COMO REQUEST
+                if (request('selectedCategory') != 0) // 0 is ALL IDEAS
+                {
+                    $query->where('category_id', request('selectedCategory'));
+                }
             }
-            elseif (request('selectedFilter' == 'My Ideas'))
+            // MY IDEAS FILTER
+            elseif (request('selectedFilter') == 'My Ideas')
             {
-                \Log::info('user');
-                $ideas = Idea::with(['user', 'category', 'status', 'comments.user'])
+                $query
                     ->where('user_id', auth()->user()->id)
-                    ->where('category_id', request('selectedCategory'))
-                    ->orderBy('id', 'desc') // will order the ideas by the last post date
-                    ->paginate(10);
+                    ->orderBy('id', 'desc');
+
+                // CATEGORY WHEN CATEGORY_ID MATCHES THE CATEGORY COMO REQUEST
+                if (request('selectedCategory') != 0) // 0 is ALL IDEAS
+                {
+                    $query->where('category_id', request('selectedCategory'));
+                }
             }
+            // ELSE JUST FILTER BY CATEGORY
             else
             {
-                $ideas = Idea::with(['user', 'category', 'status', 'comments.user'])
+                $query
                     ->where('category_id', request('selectedCategory'))
-                    ->orderBy('id', 'desc') // will order the ideas by the last post date
-                    ->paginate(10);
+                    ->orderBy('id', 'desc');
             }
-
         }
+
+        $ideas = $query->paginate(10);
 
         return [
             'success' => true,

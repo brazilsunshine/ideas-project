@@ -5,24 +5,27 @@ namespace App\Http\Controllers\Ideas;
 use App\Http\Controllers\Controller;
 use App\Models\Idea;
 
-class GetIdeaBySlugController extends Controller
+class GetIdeasByTitleController extends Controller
 {
-    public function __invoke ($slug)
+    public function __invoke ()
     {
         // comments.user will give us the comments with the user who created
         // give me the idea with the relations with 'user' and 'category'
         // We are eager loading the data
-        $idea = Idea::with([
+        $ideas = Idea::with([
             'user',
             'category',
             'status',
             'comments.user'
         ])
-        ->where('slug', $slug) // get the idea that matches the slug
-        ->first();
+            // allow user to search an idea without having to type the full title
+        ->where('title', 'LIKE', request('ideaTitle') . '%')
+        ->paginate(10);
 
         return [
-            'idea' => $idea
+            'success' => true,
+            'ideas' => $ideas
         ];
+
     }
 }

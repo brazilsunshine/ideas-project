@@ -19,6 +19,8 @@ export const actions = {
 
     /**
      * Get request to get idea by slug
+     *
+     * Payload is the split[4] that means the idea slug coming from the url
      */
     async GET_IDEA_BY_SLUG (context, payload)
     {
@@ -195,7 +197,7 @@ export const actions = {
      */
     async CREATE_LIKE (context, payload)
     {
-        await axios.post('api/ideas/create-like', {
+        await axios.post('/api/ideas/create-like', {
             id: payload
         })
 
@@ -273,12 +275,37 @@ export const actions = {
 
             if (response.data.success)
             {
-                context.commit('getFilteredIdea', response.data.filteredIdeas)
+                context.commit('setFilteredIdea', response.data.filteredIdeas)
             }
          })
         .catch(error => {
             console.log('get-filtered-ideas', error);
         });
     },
+
+    /**
+     * Get Idea by title when the user searches
+     */
+    async SEARCH_IDEA_BY_TITLE (context, payload)
+    {
+        await axios.get('/api/ideas/get-ideas-by-title', {
+            params: {
+                ideaTitle: payload
+            }
+        })
+
+        .then(response => {
+            console.log('get-idea-by-title', response);
+
+            if (response.data.success)
+            {
+                // context.commit('setIdeaByTitle', response.data.idea)
+                context.commit('setPaginatedIdeas', response.data.ideas);
+            }
+         })
+        .catch(error => {
+            console.log('get-idea-by-title', error);
+        });
+    }
 
 }

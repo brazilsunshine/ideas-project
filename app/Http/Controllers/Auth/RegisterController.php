@@ -43,7 +43,6 @@ class RegisterController extends Controller
 
         return $this->success([
             'user' => $user,
-//            'token' => $user->createToken("API token of $user->name")->plainTextToken
         ]);
     }
 }
