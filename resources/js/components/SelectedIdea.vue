@@ -61,9 +61,10 @@
                                     class="likes"
                                 >
                                     <i @click="heartIconClicked(comment.id)"
-                                        class="fa-solid fa-heart heart text-sm"></i>
+                                       class="fa-solid fa-heart heart text-sm"
+                                    ></i>
                                     <p class="text">
-                                        {{ comment.likesCount }}
+                                        ({{ comment.likesCount }})
                                         {{ comment.isCommentLikedByCurrentUser ? 'liked' : 'likes'}}
                                     </p>
                                 </div>
@@ -180,74 +181,6 @@
                     </div>
                 </div>
             </div> <!-- END COMMENT CONTAINER -->
-
-            <div class="comment-container relative bg-white rounded-xl flex mt-4">
-                <div class="flex flex-1 px-4 py-6">
-                    <div class="flex-none">
-                        <a href="#">
-                            <img
-                                src="/img/ff.jpeg"
-                                alt="avatar"
-                                class="w-14 h-14 rounded-xl"
-                            >
-                        </a>
-                    </div>
-                    <div class="w-full mx-4">
-
-                        <div class="text-gray-600 mt-3 line-clamp-3">
-                            DESCRIPTION HERE
-                        </div>
-
-                        <div class="flex items-center justify-between mt-6">
-
-                            <div class="flex items-center text-xs text-gray-400 font-semibold space-x-2">
-                                <div class="mobile-right-182 font-semibold text-gray-900 mobile-right-182">
-                                    John Doe
-                                </div>
-                                <div>
-                                    &bull;
-                                </div>
-                                <div>
-                                    10 hours ago
-                                </div>
-                           </div>
-
-                            <div class="flex items-center space-x-2">
-                                <button
-                                    @click.stop="toggleSpamModal3"
-                                    class="relative bg-gray-100 hover:bg-gray-200 rounded-full
-                                     h-7 transition duration-150 ease-in px-3 mobile-left-196"
-                                    style="margin-right: -24px; z-index: 99;"
-                                >
-                                    <i class="fa-solid fa-plus in-button"></i>
-                                    <ul
-                                        v-show="spamModal3"
-                                        class="absolute w-44 font-semibold bg-white
-                                         shadow-lg rounded-xl py-3 ml-4 mobile-left-10"
-                                    >
-                                        <li>
-                                            <a
-                                                href="#"
-                                                class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3"
-                                            >
-                                                Mark as Spam
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="#"
-                                                class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3"
-                                            >
-                                                Delete Post
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- END COMMENT CONTAINER -->
         </div> <!-- END COMMENTS CONTAINER -->
     </div>
 
@@ -274,7 +207,6 @@ export default {
         return {
             spamModal1: null,
             spamModal2: null,
-            spamModal3: null,
         }
     },
     methods: {
@@ -299,7 +231,7 @@ export default {
         {
             this.$store.commit('closeCommentsDialog');
 
-            console.log('test');
+            console.log('clicked-outside');
         },
         /**
          * Here I am updating the mutation to turn selectedIdea to null

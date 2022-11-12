@@ -21,4 +21,8 @@ Route::get('/dashboard', function () {
     return view('root');
 });
 
+Route::get('/profile', function () {
+    return view('root');
+});
+
 

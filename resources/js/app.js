@@ -21,6 +21,7 @@ Vue.use(VueToastify, {
     errorDuration: 5000,
 });
 
+
 let app = new Vue({
     el: '#app',
     router,

@@ -8,7 +8,7 @@ export const mutations = {
         // comments will become a new array of selectedIdea.comment
         let comments = [...state.selectedIdea.comments]; // this is how I see in the browser in my Vuex tab
 
-        comments.push(payload); // unshift() will add the payload to the beginning of an array and returns the new length of the array.
+        comments.unshift(payload); // unshift() will add the payload to the beginning of an array and returns the new length of the array.
 
         state.selectedIdea.comments = comments; // then update selectedIdea with the new comment
     },
@@ -142,6 +142,8 @@ export const mutations = {
 
     /**
      * Toggle comment spam dialogue
+     *
+     * Display is coming from Comment.php
      */
     toggleCommentDisplay (state, payload)
     {
@@ -164,7 +166,9 @@ export const mutations = {
     },
 
     /**
+     * CLOSE COMMENTS DIALOG WHEN CLICKED OUTSIDE
      *
+     * Display is coming from Comment.php
      */
     closeCommentsDialog (state)
     {
@@ -196,9 +200,17 @@ export const mutations = {
     },
 
     /**
+     * Set state.paginated ideas to become the filtered idea
+     */
+    setFilteredIdea (state, payload)
+    {
+        state.paginated = payload;
+    },
+
+    /**
      *
      */
-    getFilteredIdea (state, payload)
+    setIdeaByTitle (state, payload)
     {
         state.paginated = payload;
     }

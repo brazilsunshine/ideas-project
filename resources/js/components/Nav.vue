@@ -1,7 +1,10 @@
 <template>
     <div>
         <div class="text-gray-900 text-sm hide-on-mobile">
-            <nav class="flex flex-col md:flex-row items-center justify-between px-4 py-3 ">
+            <nav
+                class="flex flex-col md:flex-row items-center justify-between px-4 py-3"
+                style="align-items: self-start;"
+            >
                 <div class="flex items-center space-x-4">
                     <ul>
                         <li @click="setIdeaNull">
@@ -20,20 +23,31 @@
                         </li>
                     </ul>
                 </div>
-                <div v-else class="md:flex">
-                    <ul class="md:flex">
-                        <li>
-                            <a
-                                class="hover:border-gray-400 pointer"
+                <div v-else>
+                    <div v-click-outside="onClickOutside">
+                        <button @click="isOpen = !isOpen">
+                            <img
+                                src="img/profilepic.png"
+                                alt="Profile"
+                                style="max-width: 59px;"
+                            >
+                        </button>
+                        <ul
+                            v-show="isOpen"
+                            class="absolute bg-black text-white py-2 px-3 rounded mt-2 z-10"
+                            style="right: 11px;"
+                        >
+                            <li class="pointer">
+                                <router-link to="/profile">Profile</router-link>
+                            </li>
+                            <li
+                                class="mt-2 pointer"
                                 @click="logout"
                             >
                                 Logout
-                            </a>
-                        </li>
-                    </ul>
-                    <p class="ml-2">
-                        user avatar here
-                    </p>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -51,8 +65,18 @@
 </template>
 
 <script>
+import vClickOutside from 'v-click-outside'
+
 export default {
     name: "Nav",
+    directives: {
+        clickOutside: vClickOutside.directive
+    },
+    data () {
+        return {
+            isOpen: false,
+        }
+    },
     computed: {
         /**
          * Return True if the user is logged in.
@@ -63,6 +87,12 @@ export default {
         }
     },
     methods: {
+        onClickOutside () {
+            if (this.isOpen)
+            {
+                this.isOpen = false;
+            }
+        },
         /**
          * Post request to logout
          */
@@ -119,5 +149,37 @@ export default {
       right: 25px;
       height: 100px;
       width: auto;
+    }
+
+    /* Parent Container */
+    .content_img{
+    }
+
+    /* Child Text Container */
+    .content_img p{
+        position: absolute;
+        bottom: 294px;
+        right: -76px;
+        background: black;
+        color: white;
+        font-family: sans-serif;
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transition: visibility 0s, opacity 0.5s linear;
+        transition: visibility 0s, opacity 0.5s linear;
+
+    }
+
+    /* Hover on Parent Container */
+    .content_img:hover{
+        cursor: pointer;
+    }
+
+    .content_img:hover p{
+        width: 150px;
+        padding: 8px 15px;
+        visibility: visible;
+        opacity: 0.7;
+
     }
 </style>
