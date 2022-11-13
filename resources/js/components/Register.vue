@@ -209,7 +209,7 @@ export default {
 
                 this.$store.commit('setUserObject', response.data.data.user);
 
-                alert('Congratulations! Your account has been created. Please verify your email to activate login');
+                alert('Congratulations! Your account has been created. Please verify your emails to activate login');
 
                 // Push the user to the path /home
                 if (this.$route.path !== '/')

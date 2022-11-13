@@ -1,5 +1,7 @@
 <?php
 
+use App\Mail\UserRegistered;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -20,5 +22,9 @@ Route::get('/login', function () {
 Route::get('/dashboard', function () {
     return view('root');
 });
+
+//Route::get('/', function () {
+//    Mail::to('test@example.com')->send(new UserRegistered);
+//});
 
 
