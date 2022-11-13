@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Mail\UserRegistered;
 use App\Models\User;
 use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -23,9 +25,11 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $request->name, // name is coming from Register.vue
             'username' => $request->username, // username is coming from Register.vue
-            'email' => $request->email, // email is coming from Register.vue
+            'email' => $request->email, // emails is coming from Register.vue
             'password' => Hash::make($request->password), // password is coming from Register.vue
         ]);
+
+        Mail::to('test5@test5.com')->send(new UserRegistered);
 
         // try to log the user in
         try {
@@ -43,6 +47,7 @@ class RegisterController extends Controller
 
         return $this->success([
             'user' => $user,
+//            'token' => $user->createToken("API token of $user->name")->plainTextToken
         ]);
     }
 }
