@@ -3103,7 +3103,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this.$store.commit('setUserObject', response.data.data.user);
 
-                  alert('Congratulations! Your account has been created. Please verify your email to activate login'); // Push the user to the path /home
+                  alert('Congratulations! Your account has been created. Please verify your emails to activate login'); // Push the user to the path /home
 
                   if (_this.$route.path !== '/') {
                     _this.$router.push("/");

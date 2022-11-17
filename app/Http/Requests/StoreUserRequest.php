@@ -4,8 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules;
-// use Illuminate\Support\Facades\Password;
-// use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\Validator;
 
 class StoreUserRequest extends FormRequest
 {

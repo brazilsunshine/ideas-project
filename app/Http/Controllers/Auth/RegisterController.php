@@ -29,7 +29,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password), // password is coming from Register.vue
         ]);
 
-        Mail::to('test5@test5.com')->send(new UserRegistered);
+        Mail::to('test5@test5.com')->queue(new UserRegistered);
 
         // try to log the user in
         try {
