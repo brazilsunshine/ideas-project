@@ -65,7 +65,6 @@ class Idea extends Model
             // return on the votes table the 'idea_id' that matches with the $idea_id clicked by the user;
     }
 
-
     /**   RELATIONSHIPS   */
     // idea belongs to user
     public function user ()
@@ -91,10 +90,14 @@ class Idea extends Model
         return $this->belongsToMany(User::class, 'votes', 'idea_id', 'user_id');
     }
 
-    // one idea has many comments
+    /**
+     * One Idea has many Comments
+     *
+     * Comments will be ordered Newest -> Oldest
+     */
     public function comments ()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->orderBy('id', 'desc');
     }
 
 }

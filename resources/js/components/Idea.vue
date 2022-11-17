@@ -44,7 +44,7 @@
             <div class="flex-none">
                 <a href="#">
                     <img
-                        src="/img/avatar.jpeg"
+                        src="/img/profilepic.png"
                         alt="avatar"
                         class="w-14 h-14 rounded-xl"
                     >

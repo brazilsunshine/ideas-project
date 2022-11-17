@@ -27,10 +27,16 @@ const router = new VueRouter({
             path: '/login',
             component: require('./components/Login').default
         },
+        {
+            path: '/profile',
+            component: require('./components/Profile').default
+        },
+
         // {
         //     path: '/logout',
         //     component: require('./components/Login').default
         // },
+
         {
             path: '/register',
             component: require('./components/Register').default

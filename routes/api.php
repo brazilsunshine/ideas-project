@@ -24,6 +24,7 @@ Route::get('/ideas/get-categories', 'Ideas\GetCategoriesController');
 Route::get('/ideas/get-paginated-ideas-by-status-id', 'Ideas\GetPaginatedIdeasByStatusIdController');
 Route::get('/ideas/count-ideas-by-status', 'Ideas\CountIdeasByStatusController');
 Route::get('/ideas/get-filtered-ideas', 'Ideas\GetFilteredIdeasController');
+Route::get('/ideas/get-ideas-by-title', 'Ideas\GetIdeasByTitleController');
 
 
 

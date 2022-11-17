@@ -44,7 +44,9 @@
                 <div class="w-full md:w-2/3 relative">
                     <input
                         type="search"
-                        placeholder="Find an idea"
+                        v-model="ideaTitle"
+                        @keyup="searchTitle"
+                        placeholder="Type a title to find an idea"
                         class="w-full rounded-xl bg-white border-none px-4 py-2 pl-8"
                     >
                     <div class="absolute top-0 flex items-center h-full ml-2">
@@ -95,6 +97,7 @@
 import Idea from "./Idea";
 import SelectedIdea from "./SelectedIdea";
 import PaginationButtons from "./PaginationButtons";
+import _ from "lodash";
 
 export default {
     name: "Ideas",
@@ -108,7 +111,8 @@ export default {
         return {
             loading: true,
             selectedCategory: 0,
-            selectedFilter: 'No Filter'
+            selectedFilter: 'No Filter',
+            ideaTitle: '',
         }
     },
     async mounted ()
@@ -169,7 +173,14 @@ export default {
                 selectedCategory: this.selectedCategory,
                 selectedFilter: this.selectedFilter
             });
-        }
+        },
+
+        /**
+         * Make a get request to search for an Idea when the user stops typing with debounce/lodash
+         */
+        searchTitle: _.debounce(function () {
+            this.$store.dispatch('SEARCH_IDEA_BY_TITLE', this.ideaTitle)
+        }, 500), // time
     }
 }
 </script>
