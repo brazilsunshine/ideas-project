@@ -3158,8 +3158,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       comment: '',
-      replyModal: false,
-      setStatusModal: false
+      statusIsOpen: false,
+      isOpen: false
     };
   },
   mounted: function mounted() {
@@ -3185,27 +3185,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      * Making a commit to update show and set it to false and hide the modal;
      */
     close: function close() {
-      this.replyModal = false;
-      this.setStatusModal = false;
+      this.isOpen = false;
+      this.statusIsOpen = false;
     },
 
     /**
      * CLOSE REPLY DIALOG WHEN CLICKED OUTSIDE
      */
     replyOnClickOutside: function replyOnClickOutside() {
-      if (this.replyModal) {
-        this.replyModal = false;
+      if (this.isOpen) {
+        this.isOpen = false;
       }
-
-      console.log('clicked-outside-reply');
     },
 
     /**
      * CLOSE SET STATUS DIALOG WHEN CLICKED OUTSIDE
      */
     setStatusOnClickOutside: function setStatusOnClickOutside() {
-      if (this.setStatusModal) {
-        this.setStatusModal = false;
+      if (this.statusIsOpen) {
+        this.statusIsOpen = false;
       }
     },
 
@@ -3249,16 +3247,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      * Toggle reply modal
      */
     toggleReplyModal: function toggleReplyModal() {
-      this.replyModal = !this.replyModal;
-      this.setStatusModal = false;
+      this.isOpen = !this.isOpen;
+      this.statusIsOpen = false;
     },
 
     /**
      * Toggle set status modal
      */
     toggleSetStatusModal: function toggleSetStatusModal() {
-      this.setStatusModal = !this.setStatusModal;
-      this.replyModal = false;
+      this.statusIsOpen = !this.statusIsOpen;
+      this.isOpen = false;
     }
   }
 });
@@ -4476,10 +4474,14 @@ var render = function render() {
       "max-width": "59px"
     },
     attrs: {
-      src: "img/profilepic.png",
+      src: "/img/profilepic.png",
       alt: "Profile"
     }
-  })]), _vm._v(" "), _c("ul", {
+  })]), _vm._v(" "), _c("transition", {
+    attrs: {
+      name: "pop-out-quick"
+    }
+  }, [_c("ul", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -4501,7 +4503,7 @@ var render = function render() {
     on: {
       click: _vm.logout
     }
-  }, [_vm._v("\n                            Logout\n                        ")])])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                Logout\n                            ")])])])], 1)])])]), _vm._v(" "), _c("div", {
     staticClass: "visible md:invisible menu-icon"
   }, [_c("i", {
     staticClass: "fa-solid fa-bars",
@@ -4926,7 +4928,17 @@ var render = function render() {
     on: {
       click: _vm.toggleReplyModal
     }
-  }, [_vm._v("\n                Reply\n            ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                Reply\n            ")]), _vm._v(" "), _c("transition", {
+    attrs: {
+      name: "pop-out"
+    }
+  }, [_c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.isOpen,
+      expression: "isOpen"
+    }],
     staticClass: "absolute z-10 w-104 text-left font-semibold text-sm bg-white shadow-lg rounded-xl mt-2",
     on: {
       click: function click($event) {
@@ -4934,12 +4946,6 @@ var render = function render() {
       }
     }
   }, [_c("form", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.replyModal,
-      expression: "replyModal"
-    }],
     staticClass: "space-y-4 px-4 py-6",
     attrs: {
       action: "#"
@@ -4982,11 +4988,18 @@ var render = function render() {
     on: {
       click: _vm.createANewComment
     }
-  }, [_vm._v("\n                            Post Comment\n                        ")]), _vm._v(" "), _vm._m(0)])])])]) : _c("div", {
+  }, [_vm._v("\n                                Post Comment\n                            ")]), _vm._v(" "), _c("button", {
+    staticClass: "flex items-center justify-center w-1/2 h-11 text-xs bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3",
+    attrs: {
+      type: "button"
+    }
+  }, [_c("i", {
+    staticClass: "fa-solid fa-paperclip text-gray-500 w-4 transform -rotate-45"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "ml-1"
+  }, [_vm._v("\n                                    Attach\n                                ")])])])])])])], 1) : _c("div", {
     staticClass: "text-sm"
-  }, [_c("p", [_vm._v("\n                Please login to reply\n            ")])])]), _vm._v(" "), _c("div", {
-    staticClass: "status-dialog"
-  }, [_c("button", {
+  }, [_c("p", [_vm._v("\n                Please login to reply\n            ")])])]), _vm._v(" "), _c("div", [_c("button", {
     directives: [{
       name: "click-outside",
       rawName: "v-click-outside",
@@ -5004,12 +5017,16 @@ var render = function render() {
     staticClass: "mr-1"
   }, [_vm._v("\n                Set Status\n            ")]), _vm._v(" "), _c("i", {
     staticClass: "fa-solid fa-chevron-down ml-1"
-  })]), _vm._v(" "), _c("div", {
+  })]), _vm._v(" "), _c("transition", {
+    attrs: {
+      name: "pop-out"
+    }
+  }, [_c("div", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.setStatusModal,
-      expression: "setStatusModal"
+      value: _vm.statusIsOpen,
+      expression: "statusIsOpen"
     }],
     staticClass: "absolute z-20 w-76 text-left font-semibold text-sm bg-white shadow-lg rounded-xl mt-2"
   }, [_c("i", {
@@ -5017,28 +5034,7 @@ var render = function render() {
     on: {
       click: _vm.close
     }
-  }), _vm._v(" "), _vm._m(1)])])]);
-};
-
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("button", {
-    staticClass: "flex items-center justify-center w-1/2 h-11 text-xs bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3",
-    attrs: {
-      type: "button"
-    }
-  }, [_c("i", {
-    staticClass: "fa-solid fa-paperclip text-gray-500 w-4 transform -rotate-45"
-  }), _vm._v(" "), _c("span", {
-    staticClass: "ml-1"
-  }, [_vm._v("\n                                Attach\n                            ")])]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("form", {
+  }), _vm._v(" "), _c("form", {
     staticClass: "space-y-4 px-4 py-6",
     attrs: {
       action: "#"
@@ -5057,7 +5053,7 @@ var staticRenderFns = [function () {
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "ml-2"
-  }, [_vm._v("\n                                Open\n                            ")])])]), _vm._v(" "), _c("div", [_c("label", {
+  }, [_vm._v("\n                                    Open\n                                ")])])]), _vm._v(" "), _c("div", [_c("label", {
     staticClass: "inline-flex items-center"
   }, [_c("input", {
     staticClass: "bg-gray-200 text-purple border-none",
@@ -5068,7 +5064,7 @@ var staticRenderFns = [function () {
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "ml-2"
-  }, [_vm._v("\n                                Considering\n                            ")])])]), _vm._v(" "), _c("div", [_c("label", {
+  }, [_vm._v("\n                                    Considering\n                                ")])])]), _vm._v(" "), _c("div", [_c("label", {
     staticClass: "inline-flex items-center"
   }, [_c("input", {
     staticClass: "bg-gray-200 text-yellow border-none",
@@ -5079,7 +5075,7 @@ var staticRenderFns = [function () {
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "ml-2"
-  }, [_vm._v("\n                                In Progress\n                            ")])])]), _vm._v(" "), _c("div", [_c("label", {
+  }, [_vm._v("\n                                    In Progress\n                                ")])])]), _vm._v(" "), _c("div", [_c("label", {
     staticClass: "inline-flex items-center"
   }, [_c("input", {
     staticClass: "bg-gray-200 text-green border-none",
@@ -5090,7 +5086,7 @@ var staticRenderFns = [function () {
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "ml-2"
-  }, [_vm._v("\n                                Implemented\n                            ")])])]), _vm._v(" "), _c("div", [_c("label", {
+  }, [_vm._v("\n                                    Implemented\n                                ")])])]), _vm._v(" "), _c("div", [_c("label", {
     staticClass: "inline-flex items-center"
   }, [_c("input", {
     staticClass: "bg-gray-200 text-red border-none",
@@ -5101,7 +5097,7 @@ var staticRenderFns = [function () {
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "ml-2"
-  }, [_vm._v("\n                                Closed\n                            ")])])])]), _vm._v(" "), _c("div", [_c("textarea", {
+  }, [_vm._v("\n                                    Closed\n                                ")])])])]), _vm._v(" "), _c("div", [_c("textarea", {
     staticClass: "w-full text-sm bg-gray-100 rounded-xl border-none px-4 py-2",
     attrs: {
       name: "update_comment",
@@ -5121,14 +5117,14 @@ var staticRenderFns = [function () {
     staticClass: "fa-solid fa-paperclip text-gray-500 w-4 transform -rotate-45"
   }), _vm._v(" "), _c("span", {
     staticClass: "ml-1"
-  }, [_vm._v("\n                            Attach\n                        ")])]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n                                Attach\n                            ")])]), _vm._v(" "), _c("button", {
     staticClass: "flex items-center justify-center w-1/2 h-11 text-xs bg-blue text-white font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3",
     attrs: {
       type: "submit"
     }
   }, [_c("span", {
     staticClass: "ml-1"
-  }, [_vm._v("\n                            Update\n                        ")])])]), _vm._v(" "), _c("div", [_c("label", {
+  }, [_vm._v("\n                                Update\n                            ")])])]), _vm._v(" "), _c("div", [_c("label", {
     staticClass: "font-normal inline-flex items-center"
   }, [_c("input", {
     staticClass: "rounded bg-gray-200 form-checkbox",
@@ -5139,8 +5135,10 @@ var staticRenderFns = [function () {
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "ml-2"
-  }, [_vm._v("\n                            Notify all voters\n                        ")])])])]);
-}];
+  }, [_vm._v("\n                                Notify all voters\n                            ")])])])])])])], 1)]);
+};
+
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -6824,7 +6822,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.menu-icon[data-v-7cd4f788] {\n  cursor: pointer;\n  position: absolute;\n  top: 32px;\n  right: 25px;\n  height: 100px;\n  width: auto;\n}\n\n/* Parent Container */\n.content_img[data-v-7cd4f788]{\n}\n\n/* Child Text Container */\n.content_img p[data-v-7cd4f788]{\n    position: absolute;\n    bottom: 294px;\n    right: -76px;\n    background: black;\n    color: white;\n    font-family: sans-serif;\n    opacity: 0;\n    visibility: hidden;\n    transition: visibility 0s, opacity 0.5s linear;\n}\n\n/* Hover on Parent Container */\n.content_img[data-v-7cd4f788]:hover{\n    cursor: pointer;\n}\n.content_img:hover p[data-v-7cd4f788]{\n    width: 150px;\n    padding: 8px 15px;\n    visibility: visible;\n    opacity: 0.7;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.menu-icon[data-v-7cd4f788] {\n  cursor: pointer;\n  position: absolute;\n  top: 32px;\n  right: 25px;\n  height: 100px;\n  width: auto;\n}\n.pop-out-quick-enter-active[data-v-7cd4f788],\n.pop-out-quick-leave-active[data-v-7cd4f788] {\n    transition: all 0.4s;\n}\n.pop-out-quick-enter[data-v-7cd4f788],\n.pop-out-quick-leave-active[data-v-7cd4f788] {\n    opacity: 0;\n    transform: translateY(-7px);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6848,7 +6846,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.x-icon[data-v-3ae4f6f4] {\n    position: absolute;\n    right: 11px;\n    top: 8px;\n    cursor: pointer;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.x-icon[data-v-3ae4f6f4] {\n    position: absolute;\n    right: 11px;\n    top: 8px;\n    cursor: pointer;\n}\n.pop-out-enter-active[data-v-3ae4f6f4],\n.pop-out-leave-active[data-v-3ae4f6f4] {\n    transition: all 0.4s;\n}\n.pop-out-enter[data-v-3ae4f6f4],\n.pop-out-leave-active[data-v-3ae4f6f4] {\n    opacity: 0;\n    transform: translateY(-7px);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

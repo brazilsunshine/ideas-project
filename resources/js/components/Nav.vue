@@ -27,26 +27,30 @@
                     <div v-click-outside="onClickOutside">
                         <button @click="isOpen = !isOpen">
                             <img
-                                src="img/profilepic.png"
+                                src="/img/profilepic.png"
                                 alt="Profile"
                                 style="max-width: 59px;"
                             >
                         </button>
-                        <ul
-                            v-show="isOpen"
-                            class="absolute bg-black text-white py-2 px-3 rounded mt-2 z-10"
-                            style="right: 11px;"
+                        <transition
+                            name="pop-out-quick"
                         >
-                            <li class="pointer">
-                                <router-link to="/profile">Profile</router-link>
-                            </li>
-                            <li
-                                class="mt-2 pointer"
-                                @click="logout"
+                            <ul
+                                v-show="isOpen"
+                                class="absolute bg-black text-white py-2 px-3 rounded mt-2 z-10"
+                                style="right: 11px;"
                             >
-                                Logout
-                            </li>
-                        </ul>
+                                <li class="pointer">
+                                    <router-link to="/profile">Profile</router-link>
+                                </li>
+                                <li
+                                    class="mt-2 pointer"
+                                    @click="logout"
+                                >
+                                    Logout
+                                </li>
+                            </ul>
+                        </transition>
                     </div>
                 </div>
             </nav>
@@ -151,35 +155,14 @@ export default {
       width: auto;
     }
 
-    /* Parent Container */
-    .content_img{
+    .pop-out-quick-enter-active,
+    .pop-out-quick-leave-active {
+        transition: all 0.4s;
     }
 
-    /* Child Text Container */
-    .content_img p{
-        position: absolute;
-        bottom: 294px;
-        right: -76px;
-        background: black;
-        color: white;
-        font-family: sans-serif;
+    .pop-out-quick-enter,
+    .pop-out-quick-leave-active {
         opacity: 0;
-        visibility: hidden;
-        -webkit-transition: visibility 0s, opacity 0.5s linear;
-        transition: visibility 0s, opacity 0.5s linear;
-
-    }
-
-    /* Hover on Parent Container */
-    .content_img:hover{
-        cursor: pointer;
-    }
-
-    .content_img:hover p{
-        width: 150px;
-        padding: 8px 15px;
-        visibility: visible;
-        opacity: 0.7;
-
+        transform: translateY(-7px);
     }
 </style>
