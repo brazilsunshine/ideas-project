@@ -213,5 +213,13 @@ export const mutations = {
     setIdeaByTitle (state, payload)
     {
         state.paginated = payload;
-    }
+    },
+
+    /**
+     * Update selected Idea status to become the status the admin updated
+     */
+    updateSelectedIdeaStatus (state, payload)
+    {
+        state.selectedIdea = payload;
+    },
 }

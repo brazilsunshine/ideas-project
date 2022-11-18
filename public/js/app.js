@@ -3159,7 +3159,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       comment: '',
       statusIsOpen: false,
-      isOpen: false
+      isOpen: false,
+      statusInt: 1
     };
   },
   mounted: function mounted() {
@@ -3171,6 +3172,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this.close();
       }
     });
+    this.statusInt = this.$store.state.ideas.selectedIdea.status_id;
   },
   computed: {
     /**
@@ -3178,9 +3180,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      */
     auth: function auth() {
       return this.$store.state.user.auth;
+    },
+
+    /**
+     * Check if User is_admin;
+     */
+    isAdmin: function isAdmin() {
+      return this.$store.getters.isAdmin;
     }
   },
   methods: {
+    /**
+     * Submit update Idea status
+     */
+    submit: function submit() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this2.$store.dispatch('UPDATE_IDEA_STATUS', {
+                  statusInt: _this2.statusInt,
+                  idea_id: _this2.idea.id
+                });
+
+              case 2:
+                console.log(_this2.statusInt);
+                console.log(_this2.idea.id);
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+
     /**
      * Making a commit to update show and set it to false and hide the modal;
      */
@@ -3211,35 +3250,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      * Post request passing in as payload the comment and the idea_id
      */
     createANewComment: function createANewComment() {
-      var _this2 = this;
+      var _this3 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.next = 2;
-                return _this2.$store.dispatch('CREATE_A_NEW_COMMENT', {
-                  comment: _this2.comment,
-                  idea_id: _this2.idea.id
+                _context2.next = 2;
+                return _this3.$store.dispatch('CREATE_A_NEW_COMMENT', {
+                  comment: _this3.comment,
+                  idea_id: _this3.idea.id
                 });
 
               case 2:
-                if (_this2.comment.length === 0) {
+                if (_this3.comment.length === 0) {
                   alert('Please say something');
                 } else {
-                  _this2.comment = '';
-                  _this2.replyModal = !_this2.replyModal;
+                  _this3.comment = '';
+                  _this3.replyModal = !_this3.replyModal;
 
-                  _this2.$vToastify.success("You added your comment! =)");
+                  _this3.$vToastify.success("You added your comment! =)");
                 }
 
               case 3:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     },
 
@@ -4913,14 +4952,14 @@ var render = function render() {
       "align-items": "center"
     }
   }, [_c("div", {
-    staticClass: "relative"
-  }, [_vm.auth ? _c("div", [_c("button", {
     directives: [{
       name: "click-outside",
       rawName: "v-click-outside",
       value: _vm.replyOnClickOutside,
       expression: "replyOnClickOutside"
     }],
+    staticClass: "relative"
+  }, [_vm.auth ? _c("div", [_c("button", {
     staticClass: "flex items-center justify-center h-11 w-28 text-sm bg-blue text-white font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3",
     attrs: {
       type: "button"
@@ -4939,12 +4978,7 @@ var render = function render() {
       value: _vm.isOpen,
       expression: "isOpen"
     }],
-    staticClass: "absolute z-10 w-104 text-left font-semibold text-sm bg-white shadow-lg rounded-xl mt-2",
-    on: {
-      click: function click($event) {
-        $event.stopPropagation();
-      }
-    }
+    staticClass: "absolute z-10 w-104 text-left font-semibold text-sm bg-white shadow-lg rounded-xl mt-2"
   }, [_c("form", {
     staticClass: "space-y-4 px-4 py-6",
     attrs: {
@@ -4999,13 +5033,14 @@ var render = function render() {
     staticClass: "ml-1"
   }, [_vm._v("\n                                    Attach\n                                ")])])])])])])], 1) : _c("div", {
     staticClass: "text-sm"
-  }, [_c("p", [_vm._v("\n                Please login to reply\n            ")])])]), _vm._v(" "), _c("div", [_c("button", {
+  }, [_c("p", [_vm._v("\n                Please login to reply this idea\n            ")])])]), _vm._v(" "), _vm.isAdmin ? _c("div", {
     directives: [{
       name: "click-outside",
       rawName: "v-click-outside",
       value: _vm.setStatusOnClickOutside,
       expression: "setStatusOnClickOutside"
-    }],
+    }]
+  }, [_c("button", {
     staticClass: "ml-4 flex items-center justify-center w-36 h-11 text-sm bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3",
     attrs: {
       type: "button"
@@ -5037,63 +5072,139 @@ var render = function render() {
   }), _vm._v(" "), _c("form", {
     staticClass: "space-y-4 px-4 py-6",
     attrs: {
-      action: "#"
+      method: "post"
+    },
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.submit();
+      }
     }
   }, [_c("div", {
     staticClass: "space-y-2"
   }, [_c("div", [_c("label", {
     staticClass: "inline-flex items-center"
   }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.statusInt,
+      expression: "statusInt"
+    }],
     staticClass: "bg-gray-200 text-black border-none",
     attrs: {
       type: "radio",
       checked: "",
       name: "radio-direct",
       value: "1"
+    },
+    domProps: {
+      checked: _vm._q(_vm.statusInt, "1")
+    },
+    on: {
+      change: function change($event) {
+        _vm.statusInt = "1";
+      }
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "ml-2"
   }, [_vm._v("\n                                    Open\n                                ")])])]), _vm._v(" "), _c("div", [_c("label", {
     staticClass: "inline-flex items-center"
   }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.statusInt,
+      expression: "statusInt"
+    }],
     staticClass: "bg-gray-200 text-purple border-none",
     attrs: {
       type: "radio",
       name: "radio-direct",
       value: "2"
+    },
+    domProps: {
+      checked: _vm._q(_vm.statusInt, "2")
+    },
+    on: {
+      change: function change($event) {
+        _vm.statusInt = "2";
+      }
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "ml-2"
   }, [_vm._v("\n                                    Considering\n                                ")])])]), _vm._v(" "), _c("div", [_c("label", {
     staticClass: "inline-flex items-center"
   }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.statusInt,
+      expression: "statusInt"
+    }],
     staticClass: "bg-gray-200 text-yellow border-none",
     attrs: {
       type: "radio",
       name: "radio-direct",
       value: "3"
+    },
+    domProps: {
+      checked: _vm._q(_vm.statusInt, "3")
+    },
+    on: {
+      change: function change($event) {
+        _vm.statusInt = "3";
+      }
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "ml-2"
   }, [_vm._v("\n                                    In Progress\n                                ")])])]), _vm._v(" "), _c("div", [_c("label", {
     staticClass: "inline-flex items-center"
   }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.statusInt,
+      expression: "statusInt"
+    }],
     staticClass: "bg-gray-200 text-green border-none",
     attrs: {
       type: "radio",
       name: "radio-direct",
       value: "4"
+    },
+    domProps: {
+      checked: _vm._q(_vm.statusInt, "4")
+    },
+    on: {
+      change: function change($event) {
+        _vm.statusInt = "4";
+      }
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "ml-2"
   }, [_vm._v("\n                                    Implemented\n                                ")])])]), _vm._v(" "), _c("div", [_c("label", {
     staticClass: "inline-flex items-center"
   }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.statusInt,
+      expression: "statusInt"
+    }],
     staticClass: "bg-gray-200 text-red border-none",
     attrs: {
       type: "radio",
       name: "radio-direct",
       value: "5"
+    },
+    domProps: {
+      checked: _vm._q(_vm.statusInt, "5")
+    },
+    on: {
+      change: function change($event) {
+        _vm.statusInt = "5";
+      }
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "ml-2"
@@ -5135,7 +5246,7 @@ var render = function render() {
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "ml-2"
-  }, [_vm._v("\n                                Notify all voters\n                            ")])])])])])])], 1)]);
+  }, [_vm._v("\n                                Notify all voters\n                            ")])])])])])])], 1) : _vm._e()]);
 };
 
 var staticRenderFns = [];
@@ -6100,7 +6211,7 @@ var actions = {
   },
 
   /**
-   * Delete vote from an idea
+   * Delete vote from an idea POST REQUEST
    */
   DELETE_VOTE: function DELETE_VOTE(context, payload) {
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
@@ -6134,7 +6245,7 @@ var actions = {
   },
 
   /**
-   * Vote for an idea
+   * Vote for an idea POST REQUEST
    */
   CREATE_VOTE: function CREATE_VOTE(context, payload) {
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
@@ -6168,7 +6279,7 @@ var actions = {
   },
 
   /**
-   * Delete a like in a comment
+   * Delete a like in a comment POST REQUEST
    */
   DELETE_LIKE: function DELETE_LIKE(context, payload) {
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
@@ -6199,7 +6310,7 @@ var actions = {
   },
 
   /**
-   * Create a like in a comment
+   * Create a like in a comment POST REQUEST
    */
   CREATE_LIKE: function CREATE_LIKE(context, payload) {
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
@@ -6230,15 +6341,48 @@ var actions = {
   },
 
   /**
-   * Get request to get paginated ideas and filter them by status id
+   * Update Idea status POST REQUEST
    */
-  GET_PAGINATED_IDEAS_BY_STATUS_ID: function GET_PAGINATED_IDEAS_BY_STATUS_ID(context, payload) {
+  UPDATE_IDEA_STATUS: function UPDATE_IDEA_STATUS(context, payload) {
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
       return _regeneratorRuntime().wrap(function _callee11$(_context11) {
         while (1) {
           switch (_context11.prev = _context11.next) {
             case 0:
               _context11.next = 2;
+              return axios.post('/api/ideas/update-idea-status', {
+                statusInt: payload.statusInt,
+                idea_id: payload.idea_id
+              }) // return console.log(payload);
+              .then(function (response) {
+                console.log('update-idea-status', response);
+
+                if (response.data.success) {
+                  context.commit('updateSelectedIdeaStatus', response.data.idea);
+                }
+              })["catch"](function (error) {
+                console.log('update-idea-status', error);
+              });
+
+            case 2:
+            case "end":
+              return _context11.stop();
+          }
+        }
+      }, _callee11);
+    }))();
+  },
+
+  /**
+   * Get request to get paginated ideas and filter them by status id
+   */
+  GET_PAGINATED_IDEAS_BY_STATUS_ID: function GET_PAGINATED_IDEAS_BY_STATUS_ID(context, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+      return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+        while (1) {
+          switch (_context12.prev = _context12.next) {
+            case 0:
+              _context12.next = 2;
               return axios.get('/api/ideas/get-paginated-ideas-by-status-id', {
                 params: {
                   statusId: payload
@@ -6255,10 +6399,10 @@ var actions = {
 
             case 2:
             case "end":
-              return _context11.stop();
+              return _context12.stop();
           }
         }
-      }, _callee11);
+      }, _callee12);
     }))();
   },
 
@@ -6266,12 +6410,12 @@ var actions = {
    * Get request to get ideas by status id and count them
    */
   COUNT_IDEAS_BY_STATUS: function COUNT_IDEAS_BY_STATUS(context) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
-      return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
+      return _regeneratorRuntime().wrap(function _callee13$(_context13) {
         while (1) {
-          switch (_context12.prev = _context12.next) {
+          switch (_context13.prev = _context13.next) {
             case 0:
-              _context12.next = 2;
+              _context13.next = 2;
               return axios.get('/api/ideas/count-ideas-by-status').then(function (response) {
                 console.log('count-ideas-by-status', response);
 
@@ -6284,10 +6428,10 @@ var actions = {
 
             case 2:
             case "end":
-              return _context12.stop();
+              return _context13.stop();
           }
         }
-      }, _callee12);
+      }, _callee13);
     }))();
   },
 
@@ -6295,12 +6439,12 @@ var actions = {
    * Get filtered ideas by category and filter on the main page
    */
   GET_FILTERED_IDEAS: function GET_FILTERED_IDEAS(context, payload) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
-      return _regeneratorRuntime().wrap(function _callee13$(_context13) {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
+      return _regeneratorRuntime().wrap(function _callee14$(_context14) {
         while (1) {
-          switch (_context13.prev = _context13.next) {
+          switch (_context14.prev = _context14.next) {
             case 0:
-              _context13.next = 2;
+              _context14.next = 2;
               return axios.get('/api/ideas/get-filtered-ideas', {
                 params: {
                   selectedCategory: payload.selectedCategory,
@@ -6318,10 +6462,10 @@ var actions = {
 
             case 2:
             case "end":
-              return _context13.stop();
+              return _context14.stop();
           }
         }
-      }, _callee13);
+      }, _callee14);
     }))();
   },
 
@@ -6329,12 +6473,12 @@ var actions = {
    * Get Idea by title when the user searches
    */
   SEARCH_IDEA_BY_TITLE: function SEARCH_IDEA_BY_TITLE(context, payload) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
-      return _regeneratorRuntime().wrap(function _callee14$(_context14) {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
+      return _regeneratorRuntime().wrap(function _callee15$(_context15) {
         while (1) {
-          switch (_context14.prev = _context14.next) {
+          switch (_context15.prev = _context15.next) {
             case 0:
-              _context14.next = 2;
+              _context15.next = 2;
               return axios.get('/api/ideas/get-ideas-by-title', {
                 params: {
                   ideaTitle: payload
@@ -6352,10 +6496,10 @@ var actions = {
 
             case 2:
             case "end":
-              return _context14.stop();
+              return _context15.stop();
           }
         }
-      }, _callee14);
+      }, _callee15);
     }))();
   }
 };
@@ -6602,6 +6746,13 @@ var mutations = {
    */
   setIdeaByTitle: function setIdeaByTitle(state, payload) {
     state.paginated = payload;
+  },
+
+  /**
+   * Update selected Idea status to become the status the admin updated
+   */
+  updateSelectedIdeaStatus: function updateSelectedIdeaStatus(state, payload) {
+    state.selectedIdea = payload;
   }
 };
 
@@ -6723,6 +6874,29 @@ var actions = {
 
 /***/ }),
 
+/***/ "./resources/js/store/modules/user/getters.js":
+/*!****************************************************!*\
+  !*** ./resources/js/store/modules/user/getters.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getters": () => (/* binding */ getters)
+/* harmony export */ });
+var getters = {
+  /**
+   * A global getter to check if the user is admin
+   */
+  isAdmin: function isAdmin(state) {
+    if (!state.auth) return false;
+    return state.userObject.is_admin;
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/js/store/modules/user/index.js":
 /*!**************************************************!*\
   !*** ./resources/js/store/modules/user/index.js ***!
@@ -6735,7 +6909,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "user": () => (/* binding */ user)
 /* harmony export */ });
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./resources/js/store/modules/user/actions.js");
-/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/modules/user/mutations.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getters */ "./resources/js/store/modules/user/getters.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/modules/user/mutations.js");
+
 
 
 var state = {
@@ -6744,8 +6920,9 @@ var state = {
 };
 var user = {
   state: state,
+  getters: _getters__WEBPACK_IMPORTED_MODULE_1__.getters,
   actions: _actions__WEBPACK_IMPORTED_MODULE_0__.actions,
-  mutations: _mutations__WEBPACK_IMPORTED_MODULE_1__.mutations
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_2__.mutations
 };
 
 /***/ }),
