@@ -121,7 +121,7 @@ export const actions = {
     },
 
     /**
-     * Delete vote from an idea
+     * Delete vote from an idea POST REQUEST
      */
     async DELETE_VOTE (context, payload)
     {
@@ -147,7 +147,7 @@ export const actions = {
     },
 
     /**
-     * Vote for an idea
+     * Vote for an idea POST REQUEST
      */
     async CREATE_VOTE (context, payload)
     {
@@ -172,7 +172,7 @@ export const actions = {
     },
 
     /**
-     * Delete a like in a comment
+     * Delete a like in a comment POST REQUEST
      */
     async DELETE_LIKE (context, payload)
     {
@@ -193,7 +193,7 @@ export const actions = {
     },
 
     /**
-     * Create a like in a comment
+     * Create a like in a comment POST REQUEST
      */
     async CREATE_LIKE (context, payload)
     {
@@ -211,6 +211,32 @@ export const actions = {
          })
         .catch(error => {
             console.log('create-like', error);
+        });
+    },
+
+
+    /**
+     * Update Idea status POST REQUEST
+     */
+    async UPDATE_IDEA_STATUS (context, payload)
+    {
+        await axios.post ('/api/ideas/update-idea-status', {
+            statusInt: payload.statusInt,
+            idea_id: payload.idea_id,
+        })
+
+        // return console.log(payload);
+
+        .then(response => {
+            console.log('update-idea-status', response);
+
+            if (response.data.success)
+            {
+                context.commit('updateSelectedIdeaStatus', response.data.idea);
+            }
+         })
+        .catch(error => {
+            console.log('update-idea-status', error);
         });
     },
 
@@ -306,6 +332,7 @@ export const actions = {
         .catch(error => {
             console.log('get-idea-by-title', error);
         });
-    }
+    },
+
 
 }

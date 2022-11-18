@@ -1,9 +1,12 @@
 <template>
     <div class="flex" style="align-items: center;">
-        <div class="relative"> <!-- SET REPLY DIALOG -->
+        <!-- SET REPLY DIALOG -->
+        <div
+            class="relative"
+            v-click-outside="replyOnClickOutside"
+        >
             <div v-if="auth">
                 <button
-                    v-click-outside="replyOnClickOutside"
                     @click="toggleReplyModal"
                     type="button"
                     class="flex items-center justify-center h-11 w-28 text-sm
@@ -14,13 +17,13 @@
                 </button>
                 <transition name="pop-out">
                     <div
-                        @click.stop
                         v-show="isOpen"
                         class="absolute z-10 w-104 text-left font-semibold text-sm bg-white shadow-lg rounded-xl mt-2"
                     >
                         <form
                             action="#"
-                            class="space-y-4 px-4 py-6">
+                            class="space-y-4 px-4 py-6"
+                        >
                             <div>
                                 <i
                                     class="fa fa-times x-icon"
@@ -66,14 +69,18 @@
 
             <div v-else class="text-sm">
                 <p>
-                    Please login to reply
+                    Please login to reply this idea
                 </p>
             </div>
         </div> <!-- END REPLY DIALOG -->
 
-        <div> <!-- SET STATUS DIALOG -->
+
+        <!-- SET STATUS DIALOG -->
+        <div
+            v-if="isAdmin"
+             v-click-outside="setStatusOnClickOutside"
+        >
             <button
-                v-click-outside="setStatusOnClickOutside"
                 @click="toggleSetStatusModal"
                 type="button"
                 class="ml-4 flex items-center justify-center w-36 h-11 text-sm bg-gray-200
@@ -95,7 +102,11 @@
                         class="fa fa-times x-icon"
                         @click="close"
                     />
-                    <form action="#" class="space-y-4 px-4 py-6">
+                    <form
+                        method="post"
+                        @submit.prevent="submit()"
+                        class="space-y-4 px-4 py-6"
+                    >
                         <div class="space-y-2">
                             <div>
                                 <label class="inline-flex items-center">
@@ -104,7 +115,9 @@
                                         type="radio"
                                         checked=""
                                         name="radio-direct"
-                                        value="1">
+                                        value="1"
+                                        v-model="statusInt"
+                                    />
                                     <span class="ml-2">
                                         Open
                                     </span>
@@ -116,7 +129,9 @@
                                         class="bg-gray-200 text-purple border-none"
                                         type="radio"
                                         name="radio-direct"
-                                        value="2">
+                                        value="2"
+                                        v-model="statusInt"
+                                    />
                                     <span class="ml-2">
                                         Considering
                                     </span>
@@ -128,7 +143,9 @@
                                         class="bg-gray-200 text-yellow border-none"
                                         type="radio"
                                         name="radio-direct"
-                                        value="3">
+                                        value="3"
+                                        v-model="statusInt"
+                                    />
                                     <span class="ml-2">
                                         In Progress
                                     </span>
@@ -140,7 +157,9 @@
                                         class="bg-gray-200 text-green border-none"
                                         type="radio"
                                         name="radio-direct"
-                                        value="4">
+                                        value="4"
+                                        v-model="statusInt"
+                                    />
                                     <span class="ml-2">
                                         Implemented
                                     </span>
@@ -152,7 +171,9 @@
                                         class="bg-gray-200 text-red border-none"
                                         type="radio"
                                         name="radio-direct"
-                                        value="5">
+                                        value="5"
+                                        v-model="statusInt"
+                                    />
                                     <span class="ml-2">
                                         Closed
                                     </span>
@@ -232,7 +253,8 @@ export default {
         return {
             comment: '',
             statusIsOpen: false,
-            isOpen: false
+            isOpen: false,
+            statusInt: 1
         }
     },
     mounted () {
@@ -243,6 +265,8 @@ export default {
                 this.close();
             }
         });
+
+        this.statusInt = this.$store.state.ideas.selectedIdea.status_id;
     },
     computed: {
         /**
@@ -251,9 +275,30 @@ export default {
         auth ()
         {
             return this.$store.state.user.auth;
+        },
+
+        /**
+         * Check if User is_admin;
+         */
+        isAdmin ()
+        {
+            return (this.$store.getters.isAdmin);
         }
     },
     methods: {
+        /**
+         * Submit update Idea status
+         */
+        async submit ()
+        {
+            await this.$store.dispatch('UPDATE_IDEA_STATUS', {
+                statusInt: this.statusInt,
+                idea_id: this.idea.id
+            });
+
+            console.log(this.statusInt)
+            console.log(this.idea.id)
+        },
         /**
          * Making a commit to update show and set it to false and hide the modal;
          */

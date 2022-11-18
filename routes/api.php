@@ -1,6 +1,5 @@
 <?php
 
-use Illuminute\Controllers\TasksController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +37,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/ideas/create-a-new-comment', 'Ideas\CreateANewCommentController');
     Route::post('/ideas/create-like', 'Ideas\CreateLikeController');
     Route::post('/ideas/delete-like', 'Ideas\DeleteLikeController');
+    Route::post('/ideas/update-idea-status', 'Ideas\UpdateIdeaStatusController');
     Route::resource('/tasks', 'TasksController');
 });
 
