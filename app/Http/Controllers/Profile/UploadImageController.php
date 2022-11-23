@@ -21,7 +21,7 @@ class UploadImageController extends Controller
 
         $path = $file->hashName();
 
-        $image = Image::make($file);
+        $image = Image::make($file)->fit(1000, 1000);
 
         $disk = (app()->environment() === 'production')
             ? 's3'
@@ -33,10 +33,21 @@ class UploadImageController extends Controller
         // our image will live here
         $url = $filesystem->url($path);
 
-        $userProfileImage = UserProfileImage::create([
-            'user_id' => auth()->user()->id,
-            'url' => $url,
-        ]);
+        // get the image where the 'user_id' matches the current authenticated user
+        $userProfileImage = UserProfileImage::where('user_id', auth()->user()->id)->first();
+
+        if (!$userProfileImage) // if the user profile image doesn't exist create one
+        {
+            $userProfileImage = UserProfileImage::create([
+                'user_id' => auth()->user()->id,
+                'url' => $url
+            ]);
+        }
+        else
+        {
+            $userProfileImage->url = $url;
+            $userProfileImage->save();
+        }
 
         return [
             'success' => true,

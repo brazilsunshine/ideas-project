@@ -134,10 +134,15 @@
 
                 <div class="flex items-center justify-between space-x-3">
                     <button
+                        :class="processing ? 'is-loading' : ''"
+                        :disabled="processing"
                         class="flex items-center h-11 text-xs bg-gray-00 font-semibold
                         rounded-xl border border-gray-200 hover:border-gray-400 px-6 py-3"
                         type="submit"
                     >
+                        <span v-if="processing">
+                            <i class="fa fa-spinner fa-spin mr-1"></i>
+                        </span>
                         Register
                     </button>
                 </div>
@@ -151,6 +156,7 @@ export default {
     name: "Register",
     data () {
         return {
+            processing: false,
             // REGISTRATION
             name: '',
             username: '',
@@ -187,6 +193,8 @@ export default {
          */
         async submit ()
         {
+            this.processing = true;
+
             if (this.password !== this.password_confirmation)
             {
                 alert("Passwords do not match")
@@ -196,7 +204,7 @@ export default {
                 return '';
             }
 
-            await  axios.post('/api/register', {
+            await axios.post('/api/register', {
                 name: this.name,
                 username: this.username,
                 email: this.email,
@@ -223,6 +231,9 @@ export default {
 
                 this.$store.commit('setErrorsObject', error.response.data.errors);
             });
+
+            this.processing = false;
+
         }
     }
 }

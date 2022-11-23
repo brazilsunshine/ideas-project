@@ -7,6 +7,8 @@
         <title>SO</title>
         <link rel="stylesheet" href="/css/dist/output.css">
         <link rel="shortcut icon" href="#">
+        <!-- Dropzone -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.css" />
     </head>
 
 
