@@ -13,7 +13,7 @@ const router = new VueRouter({
             component: require('./components/Home').default
         },
         {
-            path: '/ideas/:id',
+            path: '/ideas/:id', // : will make the url
             component: require('./components/Home').default
         },
         {
@@ -28,7 +28,7 @@ const router = new VueRouter({
             component: require('./components/Login').default
         },
         {
-            path: '/profile',
+            path: '/profile/:user', // : will make the url
             component: require('./components/Profile').default
         },
 

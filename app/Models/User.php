@@ -69,4 +69,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Comment::class, 'likes');
     }
+
+    // a user has one profile image
+    public function profile_image ()
+    {
+        return $this->hasOne(UserProfileImage::class);
+    }
 }

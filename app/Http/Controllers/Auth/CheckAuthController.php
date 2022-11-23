@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class CheckAuthController extends Controller
 {
@@ -14,12 +15,12 @@ class CheckAuthController extends Controller
         if (auth()->check())
         {
             $auth = true;
-            $user = auth()->user();
+            $user = auth()->user()->load('profile_image');
         }
 
         return [
             'auth' => $auth,
-            'user' => $user
+            'user' => $user,
         ];
     }
 }
