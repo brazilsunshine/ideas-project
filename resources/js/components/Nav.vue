@@ -41,7 +41,7 @@
                                 style="right: 11px;"
                             >
                                 <li class="pointer">
-                                    <router-link to="/profile">Profile</router-link>
+                                    <router-link :to="'/profile/' + user.name">Profile</router-link>
                                 </li>
                                 <li
                                     class="mt-2 pointer"
@@ -88,6 +88,10 @@ export default {
         auth ()
         {
             return this.$store.state.user.auth;
+        },
+
+        user () {
+            return this.$store.state.user.userObject;
         }
     },
     methods: {

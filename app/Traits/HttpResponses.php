@@ -9,7 +9,7 @@ trait HttpResponses {
             'status' => 'Request was successful',
             'message' => $message,
             'data' => $data
-        ], $code    );
+        ], $code);
      }
 
      protected function error ($data, $message = null, $code)
@@ -18,6 +18,6 @@ trait HttpResponses {
             'status' => 'Error has occurred',
             'message' => $message,
             'data' => $data
-        ], $code    );
+        ], $code);
      }
 }

@@ -31,14 +31,17 @@ Route::get('/ideas/get-ideas-by-title', 'Ideas\GetIdeasByTitleController');
 // The middleware auth:sanctum is making only authenticated users have access the routes inside the curly brackets.
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', 'Auth\LogoutController');
+
     Route::post('/create-idea', 'Ideas\CreateIdeaController');
+
     Route::post('/ideas/delete-vote', 'Ideas\DeleteVoteController');
     Route::post('/ideas/create-vote', 'Ideas\CreateVoteController');
     Route::post('/ideas/create-a-new-comment', 'Ideas\CreateANewCommentController');
     Route::post('/ideas/create-like', 'Ideas\CreateLikeController');
     Route::post('/ideas/delete-like', 'Ideas\DeleteLikeController');
     Route::post('/ideas/update-idea-status', 'Ideas\UpdateIdeaStatusController');
-    Route::resource('/tasks', 'TasksController');
+
+    Route::post('/profile/upload-image', 'Profile\UploadImageController');
 });
 
 

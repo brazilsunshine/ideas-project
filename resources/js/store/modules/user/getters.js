@@ -4,8 +4,8 @@ export const getters = {
      */
     isAdmin (state)
     {
-        if (!state.auth) return false;
+        if (!state.auth) return false; // if state.auth is not true return false
 
-        return (state.userObject.is_admin);
+        return (state.userObject.is_admin); // but if state.auth is true return userObject.is_admin
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Mail\OrderShipped;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +22,7 @@ Route::get('/dashboard', function () {
     return view('root');
 });
 
-Route::get('/profile', function () {
+Route::get('/profile/{user}', function () { // {} will make the url dynamic
     return view('root');
 });
 
