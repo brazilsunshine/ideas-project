@@ -1,6 +1,6 @@
 <template>
     <div class="signup-container">
-        <div class="bg-white border-2 border-blue rounded-xl mt-16 ">
+        <div class="bg-white border-2 border-blue rounded-xl mt-16">
             <div class="text-center px-6 py-2 pt-6">
                 <h3 class="font-semibold text-base">
                     Login
@@ -57,9 +57,14 @@
                 </div>
                 <div class="flex items-center justify-between space-x-3">
                     <button
+                        :class="processing ? 'is-loading' : ''"
+                        :disabled="processing"
                         class="flex items-center h-11 text-xs bg-gray-00 font-semibold
                         rounded-xl border border-gray-200 hover:border-gray-400 px-6 py-3"
                     >
+                        <span v-if="processing">
+                            <i class="fa fa-spinner fa-spin mr-1"></i>
+                        </span>
                         Login
                     </button>
                 </div>
@@ -74,14 +79,19 @@ export default {
     data () {
         return {
             username: '',
-            password: ''
+            password: '',
+
+            processing: false
         }
     },
     methods: {
         /**
          * Submit login form
          */
-        async login () {
+        async login ()
+        {
+            this.processing = true;
+
             await axios.post('api/login', {
                 username: this.username,
                 password: this.password
@@ -101,6 +111,8 @@ export default {
             .catch(error => {
                 console.log('login', error);
             })
+
+            this.processing = false;
         }
     }
 }

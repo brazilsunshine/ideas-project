@@ -147,7 +147,7 @@ export default {
              })
             .catch(error => {
                 console.log('create-idea', error.response);
-                //
+
                 this.$store.commit('setErrorsObject', error.response.data.errors);
             });
         },

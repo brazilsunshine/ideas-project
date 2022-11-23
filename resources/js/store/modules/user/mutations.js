@@ -1,5 +1,15 @@
 export const mutations = {
     /**
+     * Changing user profile image to become the payload
+     *
+     * payload = new image uploaded by user
+     */
+    changeUserProfileImage (state, payload)
+    {
+        state.userObject.profile_image = payload;
+    },
+
+    /**
      * A user has logged in or registered
      */
     setUserObject (state, payload)

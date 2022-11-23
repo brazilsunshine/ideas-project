@@ -877,12 +877,24 @@ select{
   margin-bottom: 2rem;
 }
 
+.mt-16{
+  margin-top: 4rem;
+}
+
+.ml-2{
+  margin-left: 0.5rem;
+}
+
 .ml-1{
   margin-left: 0.25rem;
 }
 
-.mt-16{
-  margin-top: 4rem;
+.mt-5{
+  margin-top: 1.25rem;
+}
+
+.mr-1{
+  margin-right: 0.25rem;
 }
 
 .mt-4{
@@ -911,14 +923,6 @@ select{
 
 .mb-20{
   margin-bottom: 5rem;
-}
-
-.ml-2{
-  margin-left: 0.5rem;
-}
-
-.mr-1{
-  margin-right: 0.25rem;
 }
 
 .mr-6{
@@ -957,6 +961,10 @@ select{
   display: none;
 }
 
+.h-full{
+  height: 100%;
+}
+
 .h-11{
   height: 2.75rem;
 }
@@ -969,10 +977,6 @@ select{
   height: 1.75rem;
 }
 
-.h-full{
-  height: 100%;
-}
-
 .h-4{
   height: 1rem;
 }
@@ -981,12 +985,12 @@ select{
   width: 100%;
 }
 
-.w-1\/2{
-  width: 50%;
-}
-
 .w-4{
   width: 1rem;
+}
+
+.w-1\/2{
+  width: 50%;
 }
 
 .w-70{
@@ -1126,12 +1130,12 @@ select{
   border-radius: 0.25rem;
 }
 
-.border{
-  border-width: 1px;
-}
-
 .border-2{
   border-width: 2px;
+}
+
+.border{
+  border-width: 1px;
 }
 
 .border-r{
@@ -1146,19 +1150,24 @@ select{
   border-style: none;
 }
 
-.border-gray-200{
-  --tw-border-opacity: 1;
-  border-color: rgb(229 229 229 / var(--tw-border-opacity));
-}
-
 .border-blue{
   --tw-border-opacity: 1;
   border-color: rgb(50 138 241 / var(--tw-border-opacity));
 }
 
+.border-gray-200{
+  --tw-border-opacity: 1;
+  border-color: rgb(229 229 229 / var(--tw-border-opacity));
+}
+
 .border-gray-100{
   --tw-border-opacity: 1;
   border-color: rgb(245 245 245 / var(--tw-border-opacity));
+}
+
+.bg-white{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-gray-100{
@@ -1174,11 +1183,6 @@ select{
 .bg-blue{
   --tw-bg-opacity: 1;
   background-color: rgb(50 138 241 / var(--tw-bg-opacity));
-}
-
-.bg-white{
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-purple{
@@ -1215,6 +1219,16 @@ select{
   fill: currentColor;
 }
 
+.px-6{
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.py-2{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
 .px-4{
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1223,16 +1237,6 @@ select{
 .py-6{
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-}
-
-.py-2{
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.px-6{
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
 }
 
 .py-3{
@@ -1280,6 +1284,11 @@ select{
   text-align: center;
 }
 
+.text-base{
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
 .text-sm{
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -1288,11 +1297,6 @@ select{
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-base{
-  font-size: 1rem;
-  line-height: 1.5rem;
 }
 
 .text-2xl{
@@ -1553,6 +1557,18 @@ select{
     z-index: 999;
     position: absolute;
     left: 207px;
+  }
+
+  .is-loading {
+    cursor: wait;
+    border: none;
+    /* Remove borders */
+    color: black;
+    /* White text */
+    padding: 12px 16px;
+    /* Some padding */
+    font-size: 13px
+    /* Set a font size */
   }
 }
 

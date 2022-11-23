@@ -26,4 +26,8 @@ Route::get('/profile/{user}', function () { // {} will make the url dynamic
     return view('root');
 });
 
+Route::get('/profile/{user}/edit', function () { // {} will make the url dynamic
+    return view('root');
+});
+
 

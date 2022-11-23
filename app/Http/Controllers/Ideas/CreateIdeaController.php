@@ -16,7 +16,7 @@ class CreateIdeaController extends Controller
     {
         $request->validate([
             'title' => 'required|min:4',
-            'description' => 'required|min:4',
+            'description' => 'required|min:5',
             'category_id' => 'required|integer',
         ]);
 

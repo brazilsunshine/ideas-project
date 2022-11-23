@@ -31,6 +31,10 @@ const router = new VueRouter({
             path: '/profile/:user', // : will make the url
             component: require('./components/Profile').default
         },
+        {
+            path: '/profile/:user/edit', // : will make the url
+            component: require('./components/EditProfile').default
+        },
 
         // {
         //     path: '/logout',

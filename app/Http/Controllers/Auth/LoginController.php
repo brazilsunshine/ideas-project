@@ -25,7 +25,9 @@ class LoginController extends Controller
             return $this->error('', 'Credentials do not match', 401);
         }
 
-        $user = User::where('username', $request->username)->first();
+        $user = User::with('profile_image')
+            ->where('username', $request->username)
+            ->first();
 
         return $this->success([
             'user' => $user,

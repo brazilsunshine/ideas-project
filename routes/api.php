@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/ideas/update-idea-status', 'Ideas\UpdateIdeaStatusController');
 
     Route::post('/profile/upload-image', 'Profile\UploadImageController');
+    Route::post('/profile/edit-profile', 'Profile\EditProfileController');
 });
 
 

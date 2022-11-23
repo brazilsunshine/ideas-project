@@ -27,9 +27,8 @@
                     <div v-click-outside="onClickOutside">
                         <button @click="isOpen = !isOpen">
                             <img
-                                src="/img/profilepic.png"
+                                :src="this.user.profile_image.url"
                                 alt="Profile"
-                                style="max-width: 59px;"
                             >
                         </button>
                         <transition
@@ -42,6 +41,9 @@
                             >
                                 <li class="pointer">
                                     <router-link :to="'/profile/' + user.name">Profile</router-link>
+                                </li>
+                                <li class="mt-2 pointer">
+                                    <router-link :to="'/profile/' + user.name + '/edit'">Edit</router-link>
                                 </li>
                                 <li
                                     class="mt-2 pointer"
@@ -168,5 +170,10 @@ export default {
     .pop-out-quick-leave-active {
         opacity: 0;
         transform: translateY(-7px);
+    }
+
+    img {
+        max-width: 67px;
+        border-radius: 20px;
     }
 </style>
