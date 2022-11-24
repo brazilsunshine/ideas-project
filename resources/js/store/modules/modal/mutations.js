@@ -8,6 +8,16 @@ export const mutations = {
     },
 
     /**
+     * RootContainer has been created
+     *
+     * Reset application state.
+     */
+    resetState (state)
+    {
+        state.innerComponent = '';
+    },
+
+    /**
      *
      */
     showModal (state, payload)

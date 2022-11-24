@@ -37,7 +37,7 @@
                             <ul
                                 v-show="isOpen"
                                 class="absolute bg-black text-white py-2 px-3 rounded mt-2 z-10"
-                                style="right: 11px;"
+                                style="right: 15px;"
                             >
                                 <li class="pointer">
                                     <router-link :to="'/profile/' + user.name">Profile</router-link>

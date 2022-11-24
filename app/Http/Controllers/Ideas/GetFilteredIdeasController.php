@@ -40,7 +40,7 @@ class GetFilteredIdeasController extends Controller
                     ->where('user_id', auth()->user()->id)
                     ->orderBy('id', 'desc');
 
-                // CATEGORY WHEN CATEGORY_ID MATCHES THE CATEGORY COMO REQUEST
+                // CATEGORY WHEN CATEGORY_ID MATCHES THE CATEGORY COMING FROM REQUEST
                 if (request('selectedCategory') != 0) // 0 is ALL IDEAS
                 {
                     $query->where('category_id', request('selectedCategory'));

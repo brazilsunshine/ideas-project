@@ -16,6 +16,7 @@ class Idea extends Model
         'diffForHumans',
         'votesCount',
         'isVotedByUser',
+        'commentsCount'
     ];
 
     /**
@@ -44,6 +45,14 @@ class Idea extends Model
     public function getVotesCountAttribute ()
     {
         return $this->votes->count();
+    }
+
+    /**
+     * Here I am making the votesCount available in my Vue
+     */
+    public function getCommentsCountAttribute ()
+    {
+        return $this->comments->count();
     }
 
     /**

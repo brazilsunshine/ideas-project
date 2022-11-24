@@ -150,7 +150,7 @@ export const mutations = {
         let comments = [...state.selectedIdea.comments];
 
         comments = comments.map(comment => {
-            if (comment.id === payload )
+            if (comment.id === payload)
             {
                 comment.display = !comment.display;
             }
@@ -163,6 +163,34 @@ export const mutations = {
         });
 
         state.selectedIdea.comments = comments;
+    },
+
+    /**
+     *
+     */
+    toggleCommentDisplayIdesProfile (state, payload)
+    {
+        console.log(state);
+        console.log(payload);
+
+        let data = [...state.paginated.data];
+
+        let idea = data.find(idea => idea.id === payload.ideaId);
+
+        let comments = [...idea.comments];
+
+        comments = comments.map(comment => {
+            if (comment.id === payload.commentId)
+            {
+                comment.display = !comment.display;
+            }
+
+            return comment;
+        });
+
+        idea.comments = comments;
+
+        state.paginated.data = data;
     },
 
     /**

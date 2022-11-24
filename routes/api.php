@@ -43,6 +43,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/profile/upload-image', 'Profile\UploadImageController');
     Route::post('/profile/edit-profile', 'Profile\EditProfileController');
+
+    Route::get('/profile/get-my-ideas', 'Profile\GetMyIdeasController');
 });
 
 

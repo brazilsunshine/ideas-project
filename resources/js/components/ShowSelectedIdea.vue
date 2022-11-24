@@ -107,10 +107,9 @@
                             {{ this.idea.votesCount }}
                         </div>
                         <div
-                            :class="this.idea.isVotedByUser ? 'text-blue' : ''"
                             class="text-gray-400 text-xs leading-none"
                         >
-                            <p>
+                            <p :class="this.idea.isVotedByUser ? 'text-blue' : ''">
                                 {{ this.idea.votesCount === 1 ? 'Vote' : 'Votes' }}
                             </p>
                         </div>
