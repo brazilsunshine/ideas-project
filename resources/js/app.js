@@ -8,7 +8,6 @@ import vClickOutside from 'v-click-outside';
 import VueRouter from 'vue-router';
 import VueToastify from 'vue-toastify';
 import VueXData from 'vue-x-data';
-import VueSidebarMenu from 'vue-sidebar-menu'
 
 
 import RootContainer from './components/RootContainer';
@@ -18,7 +17,6 @@ window.axios = axios;
 Vue.use(vClickOutside)
 Vue.use(VueRouter);
 Vue.use(VueXData);
-Vue.use(VueSidebarMenu)
 
 Vue.use(VueToastify, {
     theme: 'light',
