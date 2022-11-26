@@ -44,8 +44,8 @@
             <div class="flex-none">
                 <a href="#">
                     <img
-                        src="/img/profilepic.png"
-                        alt="avatar"
+                        v-if="user.profile_image"
+                        :src="user.profile_image.url"
                         class="w-14 h-14 rounded-xl"
                     >
                 </a>
@@ -125,6 +125,14 @@ export default {
         }
     },
     computed : {
+        /**
+         * Get the userObject;
+         */
+        user ()
+        {
+            return this.$store.state.user.userObject;
+        },
+
         /**
          * Return True if the user is logged in.
          */

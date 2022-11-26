@@ -30,7 +30,8 @@
                     <div class="flex-none">
                         <a href="#">
                             <img
-                                src="/img/ff.jpeg"
+                                v-if="user.profile_image"
+                                :src="user.profile_image.url"
                                 alt="avatar"
                                 class="w-14 h-14 rounded-xl"
                             >
@@ -194,17 +195,27 @@ export default {
     directives: {
         clickOutside: vClickOutside.directive
     },
+    props: [
+        'idea'
+    ],
     components: {
         ModalSpam,
         ShowSelectedIdea
     },
-    props: [
-        'idea'
-    ],
+
     data () {
         return {
             spamModal1: null,
         }
+    },
+    computed: {
+        /**
+         * Get the userObject;
+         */
+        user ()
+        {
+            return this.$store.state.user.userObject;
+        },
     },
     methods: {
         /**

@@ -166,13 +166,10 @@ export const mutations = {
     },
 
     /**
-     *
+     * Toggle comments display in Profile.vue
      */
     toggleCommentDisplayIdesProfile (state, payload)
     {
-        console.log(state);
-        console.log(payload);
-
         let data = [...state.paginated.data];
 
         let idea = data.find(idea => idea.id === payload.ideaId);
@@ -195,8 +192,6 @@ export const mutations = {
 
     /**
      * CLOSE COMMENTS DIALOG WHEN CLICKED OUTSIDE
-     *
-     * Display is coming from Comment.php
      */
     closeCommentsDialog (state)
     {
@@ -236,18 +231,38 @@ export const mutations = {
     },
 
     /**
-     *
-     */
-    setIdeaByTitle (state, payload)
-    {
-        state.paginated = payload;
-    },
-
-    /**
      * Update selected Idea status to become the status the admin updated
      */
     updateSelectedIdeaStatus (state, payload)
     {
         state.selectedIdea = payload;
     },
+
+    /**
+     * Close the comment's dialog in IdeaCommentsProfile.vue
+     */
+    closeCommentsDialogProfile (state)
+    {
+        let data = [...state.paginated.data];
+
+        data = data.map(idea =>
+        {
+            let comments = [...idea.comments];
+
+            comments = comments.map(comment =>
+            {
+                comment.display = false;
+
+                return comment;
+            });
+
+            idea.comments = comments;
+
+            return idea;
+        });
+
+        state.paginated.data = data;
+    }
+
+
 }

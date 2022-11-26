@@ -58,7 +58,7 @@
                                         &bull;
                                     </div>
                                     <button
-                                        @click.stop="showComments"
+                                        @click.stop="showComments(idea.id)"
                                         class="pointer hover:text-black">
                                         <p>
                                             ({{ idea.commentsCount }}) Comments
@@ -77,7 +77,8 @@
                                         class="relative bg-gray-100 hover:bg-gray-200 rounded-full
                                         h-7 transition duration-150 ease-in px-3" style="margin-right: -17px;"
                                     >
-                                        <i class="fa-solid fa-plus in-button"></i>
+
+                                        <i class="fa-solid fa-plus"></i>
                                     </button>
                                     <ul
                                         v-show="spamModal"
@@ -89,9 +90,12 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="showIdeaComments" class="py-2">
-                        <IdeaCommentsProfile :idea="idea" />
-                    </div>
+
+                    <IdeaCommentsProfile
+                        v-if="showCommentsForIdeaId === idea.id"
+                        class="py-2"
+                        :idea="idea"
+                    />
                 </div>
             </div>
         </div>
@@ -99,14 +103,12 @@
 </template>
 
 <script>
-import vClickOutside from "v-click-outside";
 import IdeaCommentsProfile from "./IdeaCommentsProfile";
 
 export default {
     name: "Profile",
-    components: {IdeaCommentsProfile},
-    directives: {
-        clickOutside: vClickOutside.directive
+    components: {
+        IdeaCommentsProfile
     },
     data ()
     {
@@ -114,7 +116,7 @@ export default {
             loading: true,
             isOpen: false,
             spamModal: null,
-            showIdeaComments: false,
+            showCommentsForIdeaId: 0,
         }
     },
     async mounted ()
@@ -127,14 +129,6 @@ export default {
         this.loading = false;
     },
     computed: {
-        /**
-         * Return true if the user is logged in
-         */
-        auth ()
-        {
-            return this.$store.state.user.auth;
-        },
-
         /**
          * Get the userObject;
          */
@@ -164,11 +158,13 @@ export default {
         },
 
         /**
-         *
+         * Show comments if the idea.id matches the ideaId
          */
-        showComments ()
+        showComments (ideaId)
         {
-            this.showIdeaComments = true;
+            this.showCommentsForIdeaId = (this.showCommentsForIdeaId === ideaId)
+                ? 0
+                : ideaId;
         },
     }
 }

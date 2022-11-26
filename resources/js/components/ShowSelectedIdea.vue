@@ -6,8 +6,8 @@
                     <div class="flex-none">
                         <a href="#">
                             <img
-                                src="/img/avatar.jpeg"
-                                alt="avatar"
+                                v-if="user.profile_image"
+                                :src="user.profile_image.url"
                                 class="w-14 h-14 rounded-xl"
                             >
                         </a>
@@ -175,7 +175,15 @@ export default {
          */
         auth () {
             return this.$store.state.user.auth;
-        }
+        },
+
+        /**
+         * Get the userObject;
+         */
+        user ()
+        {
+            return this.$store.state.user.userObject;
+        },
     },
     methods: {
         /**

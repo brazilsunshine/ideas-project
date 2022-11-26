@@ -38,39 +38,41 @@
                         </div>
 
                         <div
+                            v-click-outside="onClickOutside"
                             class="flex items-center space-x-2"
                         >
                             <button
                                 @click.stop="toggleSpamModal(comment.id)"
                                 class="relative bg-gray-100 hover:bg-gray-200 rounded-full
-                                    h-7 transition duration-150 ease-in px-3 mobile-left-196"
+                                    h-7 px-3 mobile-left-196"
                                 style="margin-right: -24px; z-index: 99;"
                             >
-                                <i class="fa-solid fa-plus in-button"></i>
-                                <ul
-                                    v-show="comment.display"
-                                    class="absolute w-44 font-semibold bg-white
-                                        shadow-lg rounded-xl py-3 ml-4 mobile-left-10"
-                                >
-                                    <li>
-                                        <a
-                                            href="#"
-                                            class="hover:bg-gray-100 block transition
-                                                duration-150 ease-in px-5 py-3"
-                                        >
-                                            Mark as Spam
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            class="hover:bg-gray-100 block transition
-                                                duration-150 ease-in px-5 py-3"
-                                        >
-                                            Delete Post
-                                        </a>
-                                    </li>
-                                </ul>
+                                <i class="fa-solid fa-plus in-button" />
+
+                                <transition name="pop-out">
+                                    <ul
+                                        v-show="comment.display"
+                                        class="absolute w-44 font-semibold bg-white
+                                        shadow-lg rounded-xl py-3 ml-4 mobile-left-10 duration-700"
+                                    >
+                                        <li>
+                                            <a
+                                                href="#"
+                                                class="hover:bg-gray-100 block px-5 py-3"
+                                            >
+                                                Mark as Spam
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="#"
+                                                class="hover:bg-gray-100 block px-5 py-3"
+                                            >
+                                                Delete Post
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </transition>
                             </button>
                         </div>
                     </div>
@@ -81,11 +83,16 @@
 </template>
 
 <script>
+import vClickOutside from "v-click-outside";
+
 export default {
     name: "IdeaCommentsProfile",
     props: [
         'idea'
     ],
+    directives: {
+        clickOutside: vClickOutside.directive
+    },
     data ()
     {
         return {
@@ -112,6 +119,14 @@ export default {
 
     methods: {
         /**
+         * Close the comment's dialog when clicked outside
+         */
+        onClickOutside ()
+        {
+            this.$store.commit('closeCommentsDialogProfile');
+        },
+
+        /**
          * Toggle spam modal
          */
         toggleSpamModal (commentId)
@@ -126,5 +141,16 @@ export default {
 </script>
 
 <style scoped>
+
+    .pop-out-enter-active,
+    .pop-out-leave-active {
+        transition: all 0.4s;
+    }
+
+    .pop-out-enter,
+    .pop-out-leave-active {
+        opacity: 0;
+        transform: translateY(-7px);
+    }
 
 </style>
