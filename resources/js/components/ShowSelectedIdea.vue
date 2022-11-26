@@ -6,8 +6,8 @@
                     <div class="flex-none">
                         <a href="#">
                             <img
-                                v-if="user.profile_image"
-                                :src="user.profile_image.url"
+                                v-if="this.idea.user.profile_image"
+                                :src="this.idea.user.profile_image.url"
                                 class="w-14 h-14 rounded-xl"
                             >
                         </a>

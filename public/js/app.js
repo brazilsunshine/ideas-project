@@ -4381,10 +4381,10 @@ var render = function render() {
     attrs: {
       href: "#"
     }
-  }, [_vm.user.profile_image ? _c("img", {
+  }, [this.idea.user.profile_image ? _c("img", {
     staticClass: "w-14 h-14 rounded-xl",
     attrs: {
-      src: _vm.user.profile_image.url
+      src: this.idea.user.profile_image.url
     }
   }) : _vm._e()])]), _vm._v(" "), _c("div", {
     staticClass: "w-full flex flex-col justify-between mx-4"
@@ -5955,10 +5955,10 @@ var render = function render() {
       attrs: {
         href: "#"
       }
-    }, [_vm.user.profile_image ? _c("img", {
+    }, [this.idea.user.profile_image ? _c("img", {
       staticClass: "w-14 h-14 rounded-xl",
       attrs: {
-        src: _vm.user.profile_image.url,
+        src: this.idea.user.profile_image.url,
         alt: "avatar"
       }
     }) : _vm._e()])]), _vm._v(" "), _c("div", {
@@ -6123,10 +6123,10 @@ var render = function render() {
     attrs: {
       href: "#"
     }
-  }, [_vm.user.profile_image ? _c("img", {
+  }, [this.idea.user.profile_image ? _c("img", {
     staticClass: "w-14 h-14 rounded-xl",
     attrs: {
-      src: _vm.user.profile_image.url
+      src: this.idea.user.profile_image.url
     }
   }) : _vm._e()])]), _vm._v(" "), _c("div", {
     staticClass: "w-full mx-4"
