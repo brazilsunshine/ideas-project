@@ -26,6 +26,7 @@
         "lodash": "^4.17.21",
         "v-click-outside": "^3.2.0",
         "vue": "^2.6.14",
+        "vue-avatar": "^2.3.3",
         "vue-router": "^3.5.4",
         "vue-toastify": "^1.8.1",
         "vue-x-data": "^1.0.6",

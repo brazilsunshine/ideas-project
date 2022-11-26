@@ -877,16 +877,16 @@ select{
   margin-bottom: 2rem;
 }
 
+.ml-1{
+  margin-left: 0.25rem;
+}
+
 .mt-16{
   margin-top: 4rem;
 }
 
 .ml-2{
   margin-left: 0.5rem;
-}
-
-.ml-1{
-  margin-left: 0.25rem;
 }
 
 .mt-5{
@@ -961,10 +961,6 @@ select{
   display: none;
 }
 
-.h-full{
-  height: 100%;
-}
-
 .h-11{
   height: 2.75rem;
 }
@@ -977,6 +973,10 @@ select{
   height: 1.75rem;
 }
 
+.h-full{
+  height: 100%;
+}
+
 .h-4{
   height: 1rem;
 }
@@ -985,12 +985,12 @@ select{
   width: 100%;
 }
 
-.w-4{
-  width: 1rem;
-}
-
 .w-1\/2{
   width: 50%;
+}
+
+.w-4{
+  width: 1rem;
 }
 
 .w-70{
@@ -1130,12 +1130,12 @@ select{
   border-radius: 0.25rem;
 }
 
-.border-2{
-  border-width: 2px;
-}
-
 .border{
   border-width: 1px;
+}
+
+.border-2{
+  border-width: 2px;
 }
 
 .border-r{
@@ -1150,24 +1150,19 @@ select{
   border-style: none;
 }
 
-.border-blue{
-  --tw-border-opacity: 1;
-  border-color: rgb(50 138 241 / var(--tw-border-opacity));
-}
-
 .border-gray-200{
   --tw-border-opacity: 1;
   border-color: rgb(229 229 229 / var(--tw-border-opacity));
 }
 
+.border-blue{
+  --tw-border-opacity: 1;
+  border-color: rgb(50 138 241 / var(--tw-border-opacity));
+}
+
 .border-gray-100{
   --tw-border-opacity: 1;
   border-color: rgb(245 245 245 / var(--tw-border-opacity));
-}
-
-.bg-white{
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-gray-100{
@@ -1183,6 +1178,11 @@ select{
 .bg-blue{
   --tw-bg-opacity: 1;
   background-color: rgb(50 138 241 / var(--tw-bg-opacity));
+}
+
+.bg-white{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-purple{
@@ -1219,16 +1219,6 @@ select{
   fill: currentColor;
 }
 
-.px-6{
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-.py-2{
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
 .px-4{
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1237,6 +1227,16 @@ select{
 .py-6{
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+.py-2{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.px-6{
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .py-3{
@@ -1284,11 +1284,6 @@ select{
   text-align: center;
 }
 
-.text-base{
-  font-size: 1rem;
-  line-height: 1.5rem;
-}
-
 .text-sm{
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -1297,6 +1292,11 @@ select{
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-base{
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .text-2xl{
@@ -1418,6 +1418,18 @@ select{
 
 .duration-150{
   transition-duration: 150ms;
+}
+
+.duration-1000{
+  transition-duration: 1000ms;
+}
+
+.duration-700{
+  transition-duration: 700ms;
+}
+
+.duration-300{
+  transition-duration: 300ms;
 }
 
 .ease-in{
@@ -1603,6 +1615,11 @@ select{
 .hover\:bg-gray-100:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(245 245 245 / var(--tw-bg-opacity));
+}
+
+.hover\:text-black:hover{
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover{
