@@ -14,7 +14,7 @@ class GetMyIdeasController extends Controller
     public function __invoke ()
     {
         $ideas = Idea::with([
-            'user',
+            'user.profile_image',
             'category',
             'status',
             'comments.user'

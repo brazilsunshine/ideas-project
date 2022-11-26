@@ -2,15 +2,23 @@
     <div>
         <div class="idea-and-buttons container">
             <div class="idea-container bg-white rounded-xl flex mt-4">
-                <div class="flex flex-1 px-4 py-6">
-                    <div class="flex-none">
+                <div class="flex flex-1 px-4 py-6"
+                >
+                    <div
+                        v-if="idea.user.profile_image"
+                        class="flex-none"
+                    >
                         <a href="#">
                             <img
-                                v-if="this.idea.user.profile_image"
-                                :src="this.idea.user.profile_image.url"
+                                :src="idea.user.profile_image.url"
                                 class="w-14 h-14 rounded-xl"
                             >
                         </a>
+                    </div>
+                    <div v-else>
+                        <p class="text-xl" style="margin-top: 40px;">
+                            @{{ idea.user.username }}
+                        </p>
                     </div>
                     <div class="w-full mx-4">
                         <h4 class="text-xl font-semibold">
@@ -23,7 +31,6 @@
                         </div>
 
                         <div class="flex items-center justify-between mt-6">
-
                             <div class="flex items-center text-xs text-gray-400 font-semibold space-x-2">
                                 <div class="font-semibold text-gray-900">
                                     {{ this.idea.user.name }}
@@ -213,5 +220,6 @@ export default {
 </script>
 
 <style scoped>
+
 
 </style>
