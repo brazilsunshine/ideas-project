@@ -9,8 +9,8 @@
                 <div class="flex-none">
                     <a href="#">
                         <img
-                            src="/img/ff.jpeg"
-                            alt="avatar"
+                            v-if="this.idea.user.profile_image"
+                            :src="this.idea.user.profile_image.url"
                             class="w-14 h-14 rounded-xl"
                         >
                     </a>
