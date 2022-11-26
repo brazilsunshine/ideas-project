@@ -21,7 +21,7 @@
             v-click-outside="onClickOutside"
             class="comments-container relative space-y-6 ml-24 my-8"
         >
-            <!--  COMMENT -->
+            <!-- COMMENT CONTAINER-->
             <div
                 v-for="comment in this.idea.comments"
                 class="comment-container relative bg-white rounded-xl flex mt-4"
@@ -30,12 +30,14 @@
                     <div class="flex-none">
                         <a href="#">
                             <img
-                                src="/img/ff.jpeg"
+                                v-if="this.idea.user.profile_image"
+                                :src="this.idea.user.profile_image.url"
                                 alt="avatar"
                                 class="w-14 h-14 rounded-xl"
                             >
                         </a>
                     </div>
+                    <!--  COMMENTS CONTAINER  -->
                     <div class="w-full mx-4">
                         <div class="text-gray-600 mt-3 line-clamp-3">
                             <p>
@@ -71,7 +73,6 @@
                             </div>
 
                             <div
-
                                 class="flex items-center space-x-2"
                             >
                                 <button
@@ -147,14 +148,12 @@
 
                             <div class="flex items-center space-x-2">
                                 <button
-                                    @click.stop="toggleSpamModal2"
                                     class="relative bg-gray-100 hover:bg-gray-200 rounded-full
                                     h-7 transition duration-150 ease-in px-3 mobile-left-196"
                                     style="margin-right: -24px; z-index: 99;"
                                 >
                                     <i class="fa-solid fa-plus in-button"></i>
                                     <ul
-                                        v-show="spamModal2"
                                         class="absolute w-44 font-semibold bg-white
                                         shadow-lg rounded-xl py-3 ml-4 mobile-left-10"
                                     >
@@ -196,18 +195,27 @@ export default {
     directives: {
         clickOutside: vClickOutside.directive
     },
+    props: [
+        'idea'
+    ],
     components: {
         ModalSpam,
         ShowSelectedIdea
     },
-    props: [
-        'idea'
-    ],
+
     data () {
         return {
             spamModal1: null,
-            spamModal2: null,
         }
+    },
+    computed: {
+        /**
+         * Get the userObject;
+         */
+        user ()
+        {
+            return this.$store.state.user.userObject;
+        },
     },
     methods: {
         /**

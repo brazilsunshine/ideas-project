@@ -44,8 +44,8 @@
             <div class="flex-none">
                 <a href="#">
                     <img
-                        src="/img/profilepic.png"
-                        alt="avatar"
+                        v-if="this.idea.user.profile_image"
+                        :src="this.idea.user.profile_image.url"
                         class="w-14 h-14 rounded-xl"
                     >
                 </a>
@@ -73,11 +73,8 @@
                         <div class="hide-on-mobile">
                             &bull;
                         </div>
-                        <div class="text-gray-900">
-                            3
-                        </div>
-                        <div class="text-gray-900">
-                            Comments
+                        <div>
+                            ({{ this.idea.commentsCount }}) Comments
                         </div>
                     </div>
                     <div class="flex items-center space-x-2">
@@ -91,7 +88,7 @@
                         <button
                             @click.stop="toggleSpamModal"
                             class="relative bg-gray-100 hover:bg-gray-200 rounded-full
-                            h-7 transition duration-150 ease-in px-3" style="margin-right: -17px;"
+                            h-7 transition duration-150 ease-in px-3"
                         >
                             <i class="fa-solid fa-plus in-button"></i>
                             <ul
@@ -99,24 +96,6 @@
                                 class="absolute w-44 font-semibold bg-white
                                 shadow-lg rounded-xl py-3 ml-4"
                             >
-                                <li>
-                                    <a
-                                    href="#"
-                                    class="hover:bg-gray-100 block transition
-                                    duration-150 ease-in px-5 py-3"
-                                    >
-                                        Mark as Spam
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        class="hover:bg-gray-100 block transition
-                                        duration-150 ease-in px-5 py-3"
-                                    >
-                                        Delete Post
-                                    </a>
-                                </li>
                             </ul>
                         </button>
                     </div>
@@ -146,6 +125,14 @@ export default {
         }
     },
     computed : {
+        /**
+         * Get the userObject;
+         */
+        user ()
+        {
+            return this.$store.state.user.userObject;
+        },
+
         /**
          * Return True if the user is logged in.
          */

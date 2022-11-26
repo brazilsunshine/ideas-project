@@ -6,8 +6,9 @@ use Illuminate\Support\Facades\Route;
 /**
  * Frontend routes
  */
-Route::get('/', 'Ideas\IdeaController@index');
-
+Route::get('/', function () {
+    return view('root');
+});
 Route::get('/ideas/{id:slug}', 'Ideas\IdeaController@show'); // id:slug will give me the slug of the idea that matches the id
 
 Route::get('/register', function () {

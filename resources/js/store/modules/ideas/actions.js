@@ -325,7 +325,6 @@ export const actions = {
 
             if (response.data.success)
             {
-                // context.commit('setIdeaByTitle', response.data.idea)
                 context.commit('setPaginatedIdeas', response.data.ideas);
             }
          })
@@ -333,6 +332,26 @@ export const actions = {
             console.log('get-idea-by-title', error);
         });
     },
+
+    /**
+     * GET THE CURRENT USER IDEAS
+     */
+    async GET_MY_IDEAS (context, payload)
+    {
+        await axios.get('/api/profile/get-my-ideas')
+
+        .then(response => {
+            console.log('get-my-ideas', response);
+
+            if (response.data.success)
+            {
+                context.commit('setPaginatedIdeas', response.data.ideas);
+            }
+         })
+        .catch(error => {
+            console.log('get-my-ideas', error);
+        });
+    }
 
 
 }

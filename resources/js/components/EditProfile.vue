@@ -37,6 +37,10 @@
                     <div>
                         <div class="md:flex">
                             <p class="font-semibold ml-2 flex-1">Name</p>
+
+                            <p v-if="errors['name']" class="show-error-ideas">
+                                {{ this.errors['name'][0] }}
+                            </p>
                         </div>
 
                         <div class="flex items-center w-full">
@@ -46,7 +50,6 @@
                                     id="name"
                                     type="text"
                                     v-model="name"
-                                    required
                                 >
                             </div>
                         </div>
@@ -69,7 +72,6 @@
                                     id="username"
                                     type="text"
                                     v-model="username"
-                                    required
                                 >
                             </div>
                         </div>
@@ -97,6 +99,7 @@
 
 <script>
 import vue2Dropzone from "vue2-dropzone";
+import Vue from "vue";
 
 export default {
     name: "EditProfile",
@@ -197,9 +200,13 @@ export default {
          */
         uploadSuccess (file, response)
         {
+            console.log(response);
             if (response.success)
             {
-                this.$store.commit('changeUserProfileImage', response.user.profile_image);
+                this.$store.commit('changeUserProfileImage', response.user_profile_image);
+
+                Vue.$vToastify.success("You updated your profile picture! =)");
+
             }
         }
     },

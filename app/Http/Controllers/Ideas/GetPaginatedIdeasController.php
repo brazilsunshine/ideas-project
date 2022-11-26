@@ -15,7 +15,7 @@ class GetPaginatedIdeasController extends Controller
     public function __invoke ()
     {
         // comments.user will give us the comments with the user who created
-        $ideas = Idea::with(['user', 'category', 'status', 'comments.user'])
+        $ideas = Idea::with(['user.profile_image', 'category', 'status', 'comments.user'])
             ->orderBy('id', 'desc') // will order the ideas by the last post date
             ->paginate(10);
 

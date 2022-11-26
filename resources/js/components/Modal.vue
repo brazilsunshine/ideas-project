@@ -40,7 +40,7 @@ export default {
     name: 'Modal',
     components: {
         MenuModalMobile,
-        ModalSpam
+        ModalSpam,
     },
     mounted () {
         // Close modal with 'esc' key

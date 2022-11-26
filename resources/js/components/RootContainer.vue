@@ -38,7 +38,7 @@ export default {
          * Reset the state to not be saved in the localstorage
          * so the ERRORS won't persist when the page is refreshed
          */
-        await this.$store.commit('resetState');
+        this.$store.commit('resetState');
 
         /**
          * Receiving the SELECTED IDEA from the database

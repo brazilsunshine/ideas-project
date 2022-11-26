@@ -10,16 +10,6 @@ use App\Models\Idea;
 class IdeaController extends Controller
 {
     /**
-     *
-     */
-    public function index ()
-    {
-        return view('root', [
-            'idea' => null,
-        ]);
-    }
-
-    /**
      * Load one Idea
      */
     public function show ($id) // Here we are passing in the id coming from /ideas/{id} on web.php

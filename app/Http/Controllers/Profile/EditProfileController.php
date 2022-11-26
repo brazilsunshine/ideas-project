@@ -10,8 +10,8 @@ class EditProfileController extends Controller
     public function __invoke (Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'min:4', 'max:255', 'unique:users'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'username' => ['nullable', 'string', 'min:4', 'max:255', 'unique:users'],
         ]);
 
         try

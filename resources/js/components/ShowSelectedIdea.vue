@@ -6,8 +6,8 @@
                     <div class="flex-none">
                         <a href="#">
                             <img
-                                src="/img/avatar.jpeg"
-                                alt="avatar"
+                                v-if="this.idea.user.profile_image"
+                                :src="this.idea.user.profile_image.url"
                                 class="w-14 h-14 rounded-xl"
                             >
                         </a>
@@ -107,10 +107,9 @@
                             {{ this.idea.votesCount }}
                         </div>
                         <div
-                            :class="this.idea.isVotedByUser ? 'text-blue' : ''"
                             class="text-gray-400 text-xs leading-none"
                         >
-                            <p>
+                            <p :class="this.idea.isVotedByUser ? 'text-blue' : ''">
                                 {{ this.idea.votesCount === 1 ? 'Vote' : 'Votes' }}
                             </p>
                         </div>
@@ -176,7 +175,15 @@ export default {
          */
         auth () {
             return this.$store.state.user.auth;
-        }
+        },
+
+        /**
+         * Get the userObject;
+         */
+        user ()
+        {
+            return this.$store.state.user.userObject;
+        },
     },
     methods: {
         /**

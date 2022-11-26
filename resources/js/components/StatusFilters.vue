@@ -57,7 +57,7 @@ export default {
         return {
             statusId: 0,
             activeClass: 'border-b-4 pb-3 border-blue',
-            inactiveClass: 'text-gray-400 transition duration-150 ease-in border-b-4 pb-3 hover:border-blue'
+            inactiveClass: 'text-gray-400 transition duration-300 ease-in border-b-4 pb-3 hover:border-blue'
         };
     },
     computed: {
