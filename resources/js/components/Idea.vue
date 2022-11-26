@@ -127,9 +127,14 @@
 </template>
 
 <script>
+import Avatar from 'vue-avatar'
+
 
 export default {
     name: "Idea",
+    components: {
+        Avatar
+    },
     props: [
         'idea'
     ],
