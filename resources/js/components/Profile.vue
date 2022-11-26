@@ -60,7 +60,7 @@
                                     <button
                                         @click.stop="showComments(idea.id)"
                                         class="pointer hover:text-black">
-                                        <p>
+                                        <p class="pr-2">
                                             ({{ idea.commentsCount }}) Comments
                                         </p>
                                     </button>
@@ -69,6 +69,7 @@
                                     <div
                                         class="hide-on-mobile text-xs font-bold uppercase leading-none
                                     rounded-full text-center w-28 h-7 py-2 px4"
+                                        :class="statusColors[idea.status.name]"
                                     >
                                         {{ idea.status.name }}
                                     </div>
@@ -114,9 +115,15 @@ export default {
     {
         return {
             loading: true,
-            isOpen: false,
             spamModal: null,
             showCommentsForIdeaId: 0,
+            statusColors:  {
+                'Open': 'bg-gray-200',
+                'Considering': 'bg-purple text-white',
+                'In Progress': 'bg-yellow text-white',
+                'Implemented': 'bg-green text-white',
+                'Closed': 'bg-red text-white'
+            }
         }
     },
     async mounted ()

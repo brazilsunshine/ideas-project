@@ -3245,9 +3245,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       loading: true,
-      isOpen: false,
       spamModal: null,
-      showCommentsForIdeaId: 0
+      showCommentsForIdeaId: 0,
+      statusColors: {
+        'Open': 'bg-gray-200',
+        'Considering': 'bg-purple text-white',
+        'In Progress': 'bg-yellow text-white',
+        'Implemented': 'bg-green text-white',
+        'Closed': 'bg-red text-white'
+      }
     };
   },
   mounted: function mounted() {
@@ -4450,8 +4456,8 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", _vm._l(this.idea.comments, function (comment) {
-    return _c("div", {
+  return _c("div", _vm._l(_vm.idea.comments, function (comment) {
+    return _vm.idea ? _c("div", {
       staticClass: "relative bg-white rounded-xl flex mt-4 border-2"
     }, [_c("div", {
       staticClass: "flex flex-1 px-4 py-6"
@@ -4461,10 +4467,10 @@ var render = function render() {
       attrs: {
         href: "#"
       }
-    }, [this.idea.user.profile_image ? _c("img", {
+    }, [_vm.idea.user.profile_image ? _c("img", {
       staticClass: "w-14 h-14 rounded-xl",
       attrs: {
-        src: this.idea.user.profile_image.url
+        src: _vm.idea.user.profile_image.url
       }
     }) : _vm._e()])]), _vm._v(" "), _c("div", {
       staticClass: "w-full mx-4"
@@ -4476,7 +4482,7 @@ var render = function render() {
       staticClass: "flex items-center text-xs text-gray-400 font-semibold space-x-2"
     }, [_c("div", {
       staticClass: "mobile-right-182 font-semibold text-gray-900"
-    }, [_vm._v("\n                            " + _vm._s(comment.user.name) + "\n                        ")]), _vm._v(" "), _c("div", [_vm._v(" • ")]), _vm._v(" "), _c("div", [_c("p", [_vm._v("\n                                " + _vm._s(comment.diffForHumans) + "\n                            ")])]), _vm._v(" "), _c("div", [_vm._v(" • ")])]), _vm._v(" "), _c("div", {
+    }, [_vm._v("\n                            " + _vm._s(comment.user.name) + "\n                        ")]), _vm._v(" "), _c("div", [_vm._v(" • ")]), _vm._v(" "), _c("div", [_c("p", [_vm._v("\n                                " + _vm._s(comment.diffForHumans) + "\n                            ")])])]), _vm._v(" "), _c("div", {
       directives: [{
         name: "click-outside",
         rawName: "v-click-outside",
@@ -4520,7 +4526,7 @@ var render = function render() {
       attrs: {
         href: "#"
       }
-    }, [_vm._v("\n                                            Delete Post\n                                        ")])])])])], 1)])])])])]);
+    }, [_vm._v("\n                                            Delete Post\n                                        ")])])])])], 1)])])])])]) : _vm._e();
   }), 0);
 };
 
@@ -5043,12 +5049,23 @@ var render = function render() {
       value: _vm.isOpen,
       expression: "isOpen"
     }],
-    staticClass: "absolute bg-black text-white py-2 px-3 rounded mt-2 z-10",
+    staticClass: "absolute bg-black text-white py-2 rounded mt-2 z-10",
     staticStyle: {
-      right: "15px"
+      right: "10px",
+      "padding-left": "14px"
     }
   }, [_c("li", {
-    staticClass: "pointer"
+    staticClass: "pointer",
+    on: {
+      click: _vm.setIdeaNull
+    }
+  }, [_c("router-link", {
+    staticClass: "hover:border-gray-400 mr-6",
+    attrs: {
+      to: "/"
+    }
+  }, [_vm._v("Home")])], 1), _vm._v(" "), _c("li", {
+    staticClass: "pointer mt-2"
   }, [_c("router-link", {
     attrs: {
       to: "/profile/" + _vm.user.name
@@ -5208,10 +5225,13 @@ var render = function render() {
           return _vm.showComments(idea.id);
         }
       }
-    }, [_c("p", [_vm._v("\n                                        (" + _vm._s(idea.commentsCount) + ") Comments\n                                    ")])])]), _vm._v(" "), _c("div", {
+    }, [_c("p", {
+      staticClass: "pr-2"
+    }, [_vm._v("\n                                        (" + _vm._s(idea.commentsCount) + ") Comments\n                                    ")])])]), _vm._v(" "), _c("div", {
       staticClass: "flex items-center space-x-2"
     }, [_c("div", {
-      staticClass: "hide-on-mobile text-xs font-bold uppercase leading-none rounded-full text-center w-28 h-7 py-2 px4"
+      staticClass: "hide-on-mobile text-xs font-bold uppercase leading-none rounded-full text-center w-28 h-7 py-2 px4",
+      "class": _vm.statusColors[idea.status.name]
     }, [_vm._v("\n                                    " + _vm._s(idea.status.name) + "\n                                ")]), _vm._v(" "), _c("button", {
       staticClass: "relative bg-gray-100 hover:bg-gray-200 rounded-full h-7 transition duration-150 ease-in px-3",
       staticStyle: {
@@ -5930,7 +5950,7 @@ var render = function render() {
     attrs: {
       idea: _vm.idea
     }
-  }), _vm._v(" "), this.idea ? _c("div", {
+  }), _vm._v(" "), _c("div", {
     directives: [{
       name: "click-outside",
       rawName: "v-click-outside",
@@ -5938,7 +5958,7 @@ var render = function render() {
       expression: "onClickOutside"
     }],
     staticClass: "comments-container relative space-y-6 ml-24 my-8"
-  }, [_vm._l(this.idea.comments, function (comment) {
+  }, [_vm._l(_vm.idea.comments, function (comment) {
     return _c("div", {
       staticClass: "comment-container relative bg-white rounded-xl flex mt-4"
     }, [_c("div", {
@@ -5949,10 +5969,10 @@ var render = function render() {
       attrs: {
         href: "#"
       }
-    }, [this.idea.user.profile_image ? _c("img", {
+    }, [_vm.idea.user.profile_image ? _c("img", {
       staticClass: "w-14 h-14 rounded-xl",
       attrs: {
-        src: this.idea.user.profile_image.url,
+        src: _vm.idea.user.profile_image.url,
         alt: "avatar"
       }
     }) : _vm._e()])]), _vm._v(" "), _c("div", {
@@ -5993,7 +6013,11 @@ var render = function render() {
       }
     }, [_c("i", {
       staticClass: "fa-solid fa-plus in-button"
-    }), _vm._v(" "), _c("ul", {
+    }), _vm._v(" "), _c("transition", {
+      attrs: {
+        name: "pop-out"
+      }
+    }, [_c("ul", {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -6001,31 +6025,21 @@ var render = function render() {
         expression: "comment.display"
       }],
       staticClass: "absolute w-44 font-semibold bg-white shadow-lg rounded-xl py-3 ml-4 mobile-left-10"
-    }, [_vm._m(0, true), _vm._v(" "), _vm._m(1, true)])])])])])])]);
-  }), _vm._v(" "), _vm._m(2)], 2) : _vm._e()], 1);
+    }, [_c("li", [_c("a", {
+      staticClass: "hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3",
+      attrs: {
+        href: "#"
+      }
+    }, [_vm._v("\n                                                Mark as Spam\n                                            ")])]), _vm._v(" "), _c("li", [_c("a", {
+      staticClass: "hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3",
+      attrs: {
+        href: "#"
+      }
+    }, [_vm._v("\n                                                Delete Post\n                                            ")])])])])], 1)])])])])]);
+  }), _vm._v(" "), _vm._m(0)], 2)], 1);
 };
 
 var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("li", [_c("a", {
-    staticClass: "hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("\n                                            Mark as Spam\n                                        ")])]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("li", [_c("a", {
-    staticClass: "hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("\n                                            Delete Post\n                                        ")])]);
-}, function () {
   var _vm = this,
       _c = _vm._self._c;
 
@@ -6111,18 +6125,23 @@ var render = function render() {
     staticClass: "idea-container bg-white rounded-xl flex mt-4"
   }, [_c("div", {
     staticClass: "flex flex-1 px-4 py-6"
-  }, [_c("div", {
+  }, [_vm.idea.user.profile_image ? _c("div", {
     staticClass: "flex-none"
   }, [_c("a", {
     attrs: {
       href: "#"
     }
-  }, [this.idea.user.profile_image ? _c("img", {
+  }, [_c("img", {
     staticClass: "w-14 h-14 rounded-xl",
     attrs: {
-      src: this.idea.user.profile_image.url
+      src: _vm.idea.user.profile_image.url
     }
-  }) : _vm._e()])]), _vm._v(" "), _c("div", {
+  })])]) : _c("div", [_c("p", {
+    staticClass: "text-xl",
+    staticStyle: {
+      "margin-top": "40px"
+    }
+  }, [_vm._v("\n                        @" + _vm._s(_vm.idea.user.username) + "\n                    ")])]), _vm._v(" "), _c("div", {
     staticClass: "w-full mx-4"
   }, [_c("h4", {
     staticClass: "text-xl font-semibold"
@@ -7787,7 +7806,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.likes[data-v-4e2beb1d] {\n    display: flex;\n    align-items: center;\n}\n.likes[data-v-4e2beb1d]:hover {\n    color: red;\n}\n.text[data-v-4e2beb1d] {\n    margin-left: 0.5em;\n}\n.heart[data-v-4e2beb1d]:hover {\n    transform:scale(1.4);\n    cursor: pointer;\n    color: red;\n}\n.heart-liked[data-v-4e2beb1d] {\n    color: red;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.likes[data-v-4e2beb1d] {\n    display: flex;\n    align-items: center;\n}\n.likes[data-v-4e2beb1d]:hover {\n    color: red;\n}\n.text[data-v-4e2beb1d] {\n    margin-left: 0.5em;\n}\n.heart[data-v-4e2beb1d]:hover {\n    transform:scale(1.4);\n    cursor: pointer;\n    color: red;\n}\n.heart-liked[data-v-4e2beb1d] {\n    color: red;\n}\n.pop-out-enter-active[data-v-4e2beb1d],\n.pop-out-leave-active[data-v-4e2beb1d] {\n    transition: all 0.4s;\n}\n.pop-out-enter[data-v-4e2beb1d],\n.pop-out-leave-active[data-v-4e2beb1d] {\n    opacity: 0;\n    transform: translateY(-7px);\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

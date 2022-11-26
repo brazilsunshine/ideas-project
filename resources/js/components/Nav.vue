@@ -36,21 +36,29 @@
                         >
                             <ul
                                 v-show="isOpen"
-                                class="absolute bg-black text-white py-2 px-3 rounded mt-2 z-10"
-                                style="right: 15px;"
+                                class="absolute bg-black text-white py-2 rounded mt-2 z-10"
+                                style="right: 10px; padding-left: 14px;"
                             >
-                                <li class="pointer">
+                                <li
+                                    class="pointer"
+                                    @click="setIdeaNull"
+                                >
+                                    <router-link to="/" class="hover:border-gray-400 mr-6">Home</router-link>
+                                </li>
+                                <li class="pointer mt-2">
                                     <router-link :to="'/profile/' + user.name">Profile</router-link>
                                 </li>
                                 <li class="mt-2 pointer">
                                     <router-link :to="'/profile/' + user.name + '/edit'">Edit</router-link>
                                 </li>
+
                                 <li
                                     class="mt-2 pointer"
                                     @click="logout"
                                 >
                                     Logout
                                 </li>
+
                             </ul>
                         </transition>
                     </div>

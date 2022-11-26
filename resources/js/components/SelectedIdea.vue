@@ -17,21 +17,20 @@
         />
 
         <div
-            v-if="this.idea"
             v-click-outside="onClickOutside"
             class="comments-container relative space-y-6 ml-24 my-8"
         >
             <!-- COMMENT CONTAINER-->
             <div
-                v-for="comment in this.idea.comments"
+                v-for="comment in idea.comments"
                 class="comment-container relative bg-white rounded-xl flex mt-4"
             >
                 <div class="flex flex-1 px-4 py-6">
                     <div class="flex-none">
                         <a href="#">
                             <img
-                                v-if="this.idea.user.profile_image"
-                                :src="this.idea.user.profile_image.url"
+                                v-if="idea.user.profile_image"
+                                :src="idea.user.profile_image.url"
                                 alt="avatar"
                                 class="w-14 h-14 rounded-xl"
                             >
@@ -82,30 +81,32 @@
                                     style="margin-right: -24px; z-index: 99;"
                                 >
                                     <i class="fa-solid fa-plus in-button"></i>
-                                    <ul
-                                        v-show="comment.display"
-                                        class="absolute w-44 font-semibold bg-white
-                                        shadow-lg rounded-xl py-3 ml-4 mobile-left-10"
-                                    >
-                                        <li>
-                                            <a
-                                                href="#"
-                                                class="hover:bg-gray-100 block transition
-                                                duration-150 ease-in px-5 py-3"
-                                            >
-                                                Mark as Spam
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="#"
-                                                class="hover:bg-gray-100 block transition
-                                                duration-150 ease-in px-5 py-3"
-                                            >
-                                                Delete Post
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    <transition name="pop-out">
+                                        <ul
+                                            v-show="comment.display"
+                                            class="absolute w-44 font-semibold bg-white
+                                            shadow-lg rounded-xl py-3 ml-4 mobile-left-10"
+                                        >
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    class="hover:bg-gray-100 block transition
+                                                    duration-150 ease-in px-5 py-3"
+                                                >
+                                                    Mark as Spam
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    class="hover:bg-gray-100 block transition
+                                                    duration-150 ease-in px-5 py-3"
+                                                >
+                                                    Delete Post
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </transition>
                                 </button>
                             </div>
                         </div>
@@ -289,4 +290,16 @@ export default {
     .heart-liked {
         color: red;
     }
+
+    .pop-out-enter-active,
+    .pop-out-leave-active {
+        transition: all 0.4s;
+    }
+
+    .pop-out-enter,
+    .pop-out-leave-active {
+        opacity: 0;
+        transform: translateY(-7px);
+    }
+
 </style>

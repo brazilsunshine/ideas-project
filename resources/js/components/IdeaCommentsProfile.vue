@@ -2,15 +2,16 @@
     <div>
         <!-- COMMENT CONTAINER-->
         <div
-            v-for="comment in this.idea.comments"
+            v-if="idea"
+            v-for="comment in idea.comments"
             class="relative bg-white rounded-xl flex mt-4 border-2"
         >
             <div class="flex flex-1 px-4 py-6">
                 <div class="flex-none">
                     <a href="#">
                         <img
-                            v-if="this.idea.user.profile_image"
-                            :src="this.idea.user.profile_image.url"
+                            v-if="idea.user.profile_image"
+                            :src="idea.user.profile_image.url"
                             class="w-14 h-14 rounded-xl"
                         >
                     </a>
@@ -34,7 +35,6 @@
                                     {{ comment.diffForHumans }}
                                 </p>
                             </div>
-                            <div> &bull; </div>
                         </div>
 
                         <div
