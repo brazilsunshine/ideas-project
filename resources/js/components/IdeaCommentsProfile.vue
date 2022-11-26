@@ -6,7 +6,9 @@
             class="relative bg-white rounded-xl flex mt-4 border-2"
         >
             <div class="flex flex-1 px-4 py-6">
-                <div class="flex-none">
+                <div
+                    class="flex-none"
+                >
                     <a href="#">
                         <img
                             v-if="this.idea.user.profile_image"
