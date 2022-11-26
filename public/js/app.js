@@ -4455,7 +4455,18 @@ var render = function render() {
       staticClass: "relative bg-white rounded-xl flex mt-4 border-2"
     }, [_c("div", {
       staticClass: "flex flex-1 px-4 py-6"
-    }, [_vm._m(0, true), _vm._v(" "), _c("div", {
+    }, [_c("div", {
+      staticClass: "flex-none"
+    }, [_c("a", {
+      attrs: {
+        href: "#"
+      }
+    }, [this.idea.user.profile_image ? _c("img", {
+      staticClass: "w-14 h-14 rounded-xl",
+      attrs: {
+        src: this.idea.user.profile_image.url
+      }
+    }) : _vm._e()])]), _vm._v(" "), _c("div", {
       staticClass: "w-full mx-4"
     }, [_c("div", {
       staticClass: "text-gray-600 mt-3 line-clamp-3"
@@ -4513,24 +4524,7 @@ var render = function render() {
   }), 0);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
-    staticClass: "flex-none"
-  }, [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_c("img", {
-    staticClass: "w-14 h-14 rounded-xl",
-    attrs: {
-      src: "/img/ff.jpeg",
-      alt: "avatar"
-    }
-  })])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
